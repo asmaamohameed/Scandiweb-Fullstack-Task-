@@ -6,7 +6,9 @@
 function App() {
 
   return (
-    <h1>App</h1>
+    <h1 className="bg-red-500 text-white text-2xl p-5">
+    Hello world!
+  </h1>
 
     
   )
