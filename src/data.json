@@ -26,7 +26,7 @@
                     "https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_5_720x.jpg?v=1612816087",
                     "https://cdn.shopify.com/s/files/1/0087/6193/3920/products/DD1381200_DEOA_4_720x.jpg?v=1612816087"
                 ],
-                "description": "<p>Great sneakers for everyday use!</p>",
+                "description": "Great sneakers for everyday use!",
                 "category": "clothes",
                 "attributes": [
                     {
@@ -89,7 +89,7 @@
                     "https://images.canadagoose.com/image/upload/w_1333,c_scale,f_auto,q_auto:best/v1634058169/product-image/2409L_61_o.png",
                     "https://images.canadagoose.com/image/upload/w_1333,c_scale,f_auto,q_auto:best/v1634058159/product-image/2409L_61_p.png"
                 ],
-                "description": "<p>Awesome winter jacket</p>",
+                "description": "Awesome winter jacket",
                 "category": "clothes",
                 "attributes": [
                     {
@@ -144,6 +144,7 @@
                 "name": "PlayStation 5",
                 "inStock": true,
                 "gallery": [
+                    "https://s3-alpha-sig.figma.com/img/01e9/8132/33da1008ebb196b83f961eafd3a3f726?Expires=1744588800&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=N8Eu8BHTDb-Pc7R-4JQ0kt5BXkDNY5kTGeitFyx8ZE9Y3KXeffzYpSyrQ~GqxpSbKRb2pFQOo6baB7MjPUUtO~G74ZdmfbciH~6bZbDWyK3rQa-bsES4E6qPbL3dK3IFnPBd1qMyy0F213Vf17qCZWri9VvB2SCKJ5OGno5HsZ5OqmO5KVFbhsiq27Un2IIpfBO-~Xy~QH-foVlPer20tZWcmvEAWppUWpFCxTXj6nSPpxNRSINrs8-hEcv~QoOie1a7W3knKNAXAtEg~WM75uFsA~RU58aNoMlBbm7bdocRBmTLXG~mko3IgraXQRkLr--ww5AoR0~5NXNzb5AAlQ__",
                     "https://images-na.ssl-images-amazon.com/images/I/510VSJ9mWDL._SL1262_.jpg",
                     "https://images-na.ssl-images-amazon.com/images/I/610%2B69ZsKCL._SL1500_.jpg",
                     "https://images-na.ssl-images-amazon.com/images/I/51iPoFwQT3L._SL1230_.jpg",
