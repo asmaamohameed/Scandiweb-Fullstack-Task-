@@ -1,17 +1,26 @@
-import { createBrowserRouter, Route, createRoutesFromElements } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Route,
+  createRoutesFromElements,
+} from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import CategoryPage from "../Components/CategoryPage";
-import localData from "../data.json"; // Import local mock data
+import CategoryPage from "../Pages/CategoryPage";
+import ProductPage from "../Pages/ProductPage";
+import localData from "../data.json";
 
 const GenerateRoutes = () => {
-  const categories = localData.data.categories; // Use mock categories
+  const categories = localData.data.categories;
 
   return createRoutesFromElements(
     <Route path="/" element={<MainLayout />}>
       {categories.map((category: { name: string }) => (
-        <Route key={category.name} path={category.name.toUpperCase()} element={<CategoryPage category={category.name} />} />
-
+        <Route
+          key={category.name}
+          path={category.name.toUpperCase()}
+          element={<CategoryPage category={category.name} />}
+        />
       ))}
+      <Route path="product/:id" element={<ProductPage />} />
     </Route>
   );
 };
@@ -19,42 +28,6 @@ const GenerateRoutes = () => {
 const router = createBrowserRouter(GenerateRoutes());
 
 export default router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { createBrowserRouter, Route, RouterProvider, createRoutesFromElements } from "react-router-dom";
 // import MainLayout from "../layouts/MainLayout";
