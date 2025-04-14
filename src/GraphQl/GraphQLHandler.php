@@ -34,7 +34,7 @@ class GraphQLHandler
             'products'   => fn() => ProductResolver::getProducts(),
             'product'    => fn($root, $args) => ProductResolver::getProductById($root, $args),
             'categories' => fn() => CategoryResolver::getCategories(),
-            'category'   => fn($root, $args) => CategoryResolver::getCategoryById($root, $args),
+            'category'   => fn($root, $args) => CategoryResolver::getCategory($root, $args),
 
             // Mutations
             'placeOrder' => fn($root, $args): array => OrderResolver::placeOrder($args['order']),

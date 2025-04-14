@@ -11,8 +11,8 @@ class CategoryResolver
         return Category::getAll();
     }
 
-    public static function getCategoryById($root, array $args): ?array
+    public static function getCategory($root, array $args): ?array
     {
-        return Category::findById($args['id']);
+        return Category::findByName($args['name']);
     }
 }

@@ -3,7 +3,6 @@
 namespace Scandiweb\Models;
 
 use Scandiweb\DatabaseQuery;
-use ReflectionClass;
 
 abstract class Model
 {
@@ -15,7 +14,15 @@ abstract class Model
        $this->db = new DatabaseQuery();
     }
 
-    public static function getAll(): array
+    public function hydrate(array $data): void
+    {
+        foreach ($data as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->{$key} = $value;
+            }
+        }
+    }
+    public static function getAll()
     {
         return (new static)->db->query("SELECT * FROM " . static::$table)->get();
 

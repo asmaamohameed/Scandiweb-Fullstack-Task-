@@ -6,9 +6,19 @@ class Category extends Model
 {
     protected static string $table = 'categories';
 
-    public static function findById(string $id): ?array
+    protected string $name;
+
+    public static function findByName(string $name): ?array
     {
-        return static::find($id); 
+        return static::find($name); 
+    }
+
+    public function __get($name)
+    {
+        if (property_exists($this, $name)) {
+            return $this->{$name};
+        }
+        return null;
     }
 }
 
