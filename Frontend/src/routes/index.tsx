@@ -1,33 +1,43 @@
-import {
-  createBrowserRouter,
-  Route,
-  createRoutesFromElements,
-} from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { createBrowserRouter, Route, RouterProvider, createRoutesFromElements } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import CategoryPage from "../Pages/CategoryPage";
 import ProductPage from "../Pages/ProductPage";
+import { GET_CATEGORIES } from "../GraphQL/queries"; // Make sure the query exists
 import localData from "../data.json";
+import Loading from '../Components/Loading';
 
-const GenerateRoutes = () => {
-  const categories = localData.data.categories;
+const Router = () => {
+  const { data, loading, error } = useQuery(GET_CATEGORIES);
 
-  return createRoutesFromElements(
-    <Route path="/" element={<MainLayout />}>
-      {categories.map((category: { name: string }) => (
-        <Route
-          key={category.name}
-          path={category.name.toUpperCase()}
-          element={<CategoryPage category={category.name} />}
-        />
-      ))}
-      <Route path="product/:id" element={<ProductPage />} />
-    </Route>
+  if (loading) return <Loading />;  
+  if (error) {
+    console.error("GraphQL Error:", error.message);
+  }
+
+  const categories = data?.categories || localData.data.categories;
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<MainLayout />}>
+        <Route index element={<CategoryPage category="all" />} />
+        {categories.map((category: { name: string }) => (
+          <Route
+            key={category.name}
+            path={category.name.toLowerCase()}
+            element={<CategoryPage category={category.name} />}
+          />
+        ))}
+        <Route path="product/:id" element={<ProductPage />} />
+      </Route>
+    )
   );
+
+  return <RouterProvider router={router} />;
 };
 
-const router = createBrowserRouter(GenerateRoutes());
+export default Router;
 
-export default router;
 
 // import { createBrowserRouter, Route, RouterProvider, createRoutesFromElements } from "react-router-dom";
 // import MainLayout from "../layouts/MainLayout";

@@ -13,7 +13,12 @@ export interface CartItem {
   price: number;
   image: string;
   quantity: number;
-  attributes?: Record<string, string>;
+  attributes?: Record<string, string>; // selected values
+  allAttributes?: {
+    name: string;
+    type: string;
+    items: { displayValue: string; value: string; id: string }[];
+  }[]; // full set of options
 }
 
 interface CartContextType {
@@ -37,23 +42,39 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [cart]);
 
-  const addToCart = (product: CartItem, selectedAttributes: Record<string, string> = {}) => {
-    setCart((prevCart) => {
-      const existingProduct = prevCart.find(
-        (item) => item.id === product.id && areAttributesEqual(item.attributes, selectedAttributes)
+ const addToCart = (
+  product: CartItem,
+  selectedAttributes: Record<string, string> = {},
+  allAttributes: CartItem["allAttributes"] = []
+) => {
+  setCart((prevCart) => {
+    const existingProduct = prevCart.find(
+      (item) =>
+        item.id === product.id &&
+        areAttributesEqual(item.attributes, selectedAttributes)
+    );
+
+    if (existingProduct) {
+      return prevCart.map((item) =>
+        item.id === product.id &&
+        areAttributesEqual(item.attributes, selectedAttributes)
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
       );
+    }
 
-      if (existingProduct) {
-        return prevCart.map((item) =>
-          item.id === product.id && areAttributesEqual(item.attributes, selectedAttributes)
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
+    return [
+      ...prevCart,
+      {
+        ...product,
+        attributes: selectedAttributes,
+        allAttributes,
+        quantity: 1,
+      },
+    ];
+  });
+};
 
-      return [...prevCart, { ...product, attributes: selectedAttributes, quantity: 1 }];
-    });
-  };
 
   const updateQuantity = (id: string, attributes: Record<string, string>, amount: number) => {
     setCart((prevCart) =>

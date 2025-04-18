@@ -1,14 +1,15 @@
+import { Component } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../Components/Header";
 
-const MainLayout = () => {
-
-  return (
-    <div className="layout relative">
-      <Header />
-      <Outlet />
-    </div>
-  );
-};
-
+class MainLayout extends Component {
+  render() {
+    return (
+      <div className="layout relative">
+        <Header />
+        <Outlet />
+      </div>
+    );
+  }
+}
 export default MainLayout;

@@ -3,16 +3,25 @@
 namespace Scandiweb\GraphQl\Resolvers;
 
 use Scandiweb\Models\Category;
+use Scandiweb\Models\Product;
 
 class CategoryResolver
 {
-    public static function getCategories()
+    public static function all(): array
     {
         return Category::getAll();
     }
 
-    public static function getCategory($root, array $args): ?array
+    public static function find(array $args): ?Category
     {
-        return Category::findByName($args['name']);
+        $category = Category::find($args['id']);
+
+        if ($category) {
+            // Load related products
+            $products = Product::where('category_id', '=', $category->id);
+            $category->products = $products;
+        }
+
+        return $category;
     }
 }

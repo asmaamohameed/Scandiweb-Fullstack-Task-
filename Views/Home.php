@@ -1,16 +1,19 @@
-<h2> welcom to backend </h2>
-
-<?php foreach ($products as $product): ?>
-    <h2><?= $product['name'] ?></h2>
-    <p><?= $product['inStock'] ?></p>
-    <br>
-    <p><?= $product['gallery'] ?></p>
-    <br>
-    <p><?= $product['description'] ?></p>
-    <br>
-    <p><?= $product['category'] ?></p>
-    <br>
-    <p><?= $product['brand'] ?></p>
-    <hr>
-
-<?php endforeach; ?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="/a-logo.png"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta name="description" content="Web site created using create-react-app"/>
+    <link rel="apple-touch-icon" href="/a-logo.png"/>
+    <link rel="manifest" href="/manifest.json"/>
+    <title>Scandiweb</title>
+    <script defer="defer" src="/static/js/main.773a0e2d.js"></script>
+    <link href="/static/css/main.af30135c.css" rel="stylesheet">
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+</body>
+</html>

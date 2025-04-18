@@ -1,95 +1,95 @@
 schema {
-    query: Query
-    mutation: Mutation
+  query: Query
+  mutation: Mutation
 }
 
 type Query {
-    categories: [Category]!
-    category(id: ID): Category
-    products: [Product]!
-    product(id: ID!): Product
+  categories: [Category]!
+  category(id: ID!): Category
+  products(category: String): [Product!]!
+  product(id: ID!): Product
 }
 
 type Category {
-    id: ID
-    name: String
-    products: [Product]
+  id: ID!
+  name: String!
+  products: [Product]
 }
 
 type Product {
-    id: ID
-    name: String
-    inStock: Boolean
-    description: String
-    category: Category
-    attrs: [Attribute]
-    brand: String
-    gallery: [String]
-    prices: [Price]
+  id: ID!
+  name: String!
+  inStock: Boolean!
+  description: String!
+  category: Category
+  attributes: [Attribute]
+  brand: String!
+  gallery: [String]!
+  prices: [Price]!
 }
 
 type Attribute {
-    id: ID
-    name: String
-    type: String
-    items: [AttributeValue]
+  id: ID!
+  name: String!
+  type: String!
+  items: [AttributeValue]!
 }
 
 type AttributeValue {
-    id: ID
-    value: String
-    display_value: String
-    selected: Boolean
+  id: ID!
+  value: String!
+  displayValue: String!
+  selected: Boolean
 }
 
 type Price {
-    id: ID
-    amount: Float
-    currency: Currency
+  id: ID!
+  amount: Float!
+  currency: Currency!
 }
 
 type Currency {
-    label: String
-    symbol: String
+  label: String!
+  symbol: String!
 }
 
 type Mutation {
-    placeOrder(order: [Order]!): Response
+  placeOrder(order: [OrderInput]!): Response!
 }
 
 type Response {
-    message: String
+  message: String!
 }
 
-input Order {
-    id: ID
-    prices: [PriceInput]
-    name: String
-    quantity: Int
-    attrs: [AttributeInput]
+input OrderInput {
+  id: ID
+  prices: [PriceInput]!
+  name: String!
+  quantity: Int!
+  attributes: [AttributeInput]!
 }
 
 input PriceInput {
-    id: ID
-    amount: Float
-    currency: CurrencyInput
+  id: ID
+  amount: Float!
+  currency: CurrencyInput!
 }
 
 input CurrencyInput {
-    label: String
-    symbol: String
+  label: String!
+  symbol: String!
 }
 
 input AttributeInput {
-    id: ID
-    name: String
-    type: String
-    items: [AttributeValueInput]
+  id: ID!
+  name: String!
+  type: String!
+  items: [AttributeValueInput]!
 }
 
 input AttributeValueInput {
-    id: ID
-    value: String
-    display_value: String
-    selected: Boolean
+  id: ID!
+  value: String!
+  displayValue: String!
+  selected: Boolean
 }

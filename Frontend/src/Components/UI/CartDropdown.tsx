@@ -14,8 +14,8 @@ const CartDropdown = () => {
   );
 
   return (
-    <div className="absolute top-15 right-0 bg-white shadow-lg p-6 w-97  z-50">
-      <h2 className="text-lg font-bold mb-3">
+    <div className="absolute top-15 right-10 bg-white shadow-lg p-6 w-97  z-50">
+      <h2 className="text-lg font-bold mb-10">
         My Bag, <span className="font-normal">{cart.length} items</span>
       </h2>
 
@@ -23,54 +23,58 @@ const CartDropdown = () => {
         <p className="text-gray-500">Your cart is empty</p>
       ) : (
         <div className="space-y-4">
-          {cart.map(item => (
+          {cart.map((item) => (
             <div
               key={item.id}
-              className="cart-item flex items-center pb-4"
+              className="relative cart-item flex  py-4 border-b-2"
             >
-              <div className="relative flex items-center gap-8 w-44 h-44">
-                <div className="my-4 flex-1">
-                  <p className="text-base font-semibold py-2">{item.name}</p>
-                  <p className="text-black-500 font-bold text-m py-2">
-                    ${item.price.toFixed(2)}
-                  </p>
-                  {/* {item.attributes?.Size && (
-                    <div className="flex items-center gap-2 mt-2 py-2">
-                      <span className="text-m font-semibold">Size:</span>
-                      <div className="flex space-x-2 mt-2">
-                        {Object.values(item.attributes).map((size) => (
-                          <span
-                            key={size}
-                            className={`cursor-pointer px-2 py-1 border text-xs ${
-                              item.attributes?.Size === size
-                                ? "font-semibold bg-black text-white"
-                                : "font-semibold bg-white text-black"
-                            }`}
-                          >
-                            {size}
-                          </span>
-                        ))}
+              <div className="relative flex items-center pr-2 w-35 h-auto">
+                <div className="flex-1">
+                  <p className="text-base font-semibold pb-2 flex-wrap">{item.name}</p>
+                  {item.allAttributes?.map((attribute) => (
+                    <div key={attribute.name} className="mt-2">
+                      <span className="text-sm font-semibold">
+                        {attribute.name}:
+                      </span>
+                      <div className="flex mt-1 flex-wrap gap-1 ">
+                        {attribute.items.map((attrItem) => {
+                          const isColor = attrItem.value.startsWith("#");
+                          const isSelected =
+                            item.attributes?.[attribute.name] ===
+                            attrItem.value;
+
+                          return (
+                            <span
+                              key={attrItem.id}
+                              className={`text-xs border px-2 py-1 cursor-pointer ${
+                                isColor ? "w-6 h-6 " : "font-semibold"
+                              }`}
+                              style={{
+                                backgroundColor: isColor
+                                  ? attrItem.value
+                                  : undefined,
+                                color: isColor ? "transparent" : "black",
+                                border: isSelected
+                                  ? "2px solid black"
+                                  : isColor
+                                  ? "1px solid gray"
+                                  : "1px solid lightgray",
+                              }}
+                            >
+                              {!isColor && attrItem.value}
+                            </span>
+                          );
+                        })}
                       </div>
                     </div>
-                  )} */}
-                  {/* <div className="mt-2">
-                    <span className="text-m font-semibold">Color:</span>
-                    <div className="flex space-x-2 mt-2">
-                      {["#C4E1C5", "#333333", "#043927"].map((color) => (
-                        <span
-                          key={color}
-                          className="w-5 h-5 border cursor-pointer"
-                          style={{
-                            backgroundColor: color,
-                            border:
-                              item.color === color ? "2px solid black" : "none",
-                          }}
-                        />
-                      ))}
-                    </div>
-                  </div> */}
+                  ))}
+                  <h3 className="font-bold py-2">Price:</h3>
+                  <p className="text-black-500 font-bold text-m ">
+                    ${item.price.toFixed(2)}
+                  </p>
                 </div>
-
+              </div>
+              <div className="relative flex items-center  w-44 h-44">
                 <div className="flex flex-col items-center justify-between h-full pr-2">
                   <button
                     className="cursor-pointer p-1 border"
@@ -90,8 +94,6 @@ const CartDropdown = () => {
                     <Minus size={16} />
                   </button>
                 </div>
-              </div>
-              <div className="relative flex items-center gap-8 w-44 h-44">
                 <img
                   src={item.image}
                   alt={item.name}
@@ -103,7 +105,7 @@ const CartDropdown = () => {
         </div>
       )}
 
-      <div className="mt-4 flex justify-between items-center font-bold text-lg">
+      <div className="mt-10 flex justify-between items-center font-bold text-lg">
         <span>Total</span>
         <span>${totalPrice}</span>
       </div>

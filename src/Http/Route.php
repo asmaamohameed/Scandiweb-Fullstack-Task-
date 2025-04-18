@@ -10,6 +10,8 @@ class Route
     public static array $routes = [];
     protected Request $request;
     protected Response $response;
+    private static $fallback;
+
 
     public function __construct(Request $request, Response $response)
     {

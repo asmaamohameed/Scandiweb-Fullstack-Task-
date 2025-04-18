@@ -4,9 +4,9 @@ namespace Scandiweb\GraphQl;
 
 use GraphQL\GraphQL;
 use GraphQL\Utils\BuildSchema;
-use Scandiweb\GraphQl\Resolvers\ProductResolver;
-use Scandiweb\GraphQl\Resolvers\CategoryResolver;
-use Scandiweb\GraphQl\Resolvers\OrderResolver;
+use Scandiweb\GraphQL\Resolvers\ProductResolver;
+use Scandiweb\GraphQL\Resolvers\CategoryResolver;
+use Scandiweb\GraphQL\Resolvers\OrderResolver;
 use GraphQL\Type\Schema;
 use Throwable;
 
@@ -24,24 +24,24 @@ class GraphQLHandler
     private function loadSchema(): void
     {
         $schemaString = file_get_contents(__DIR__ . '/schema.graphql');
-        $this->schema = BuildSchema::build($schemaString); 
+        $this->schema = BuildSchema::build($schemaString);
     }
 
     private function setResolvers(): void
     {
         $this->rootValue = [
             // Queries
-            'products'   => fn() => ProductResolver::getProducts(),
-            'product'    => fn($root, $args) => ProductResolver::getProductById($root, $args),
-            'categories' => fn() => CategoryResolver::getCategories(),
-            'category'   => fn($root, $args) => CategoryResolver::getCategory($root, $args),
+            'products' => fn($root, $args) => ProductResolver::all($args),
+            'product'    => fn($root, $args) => ProductResolver::find($args),
+            'categories' => fn() => CategoryResolver::all(),
+            'category'   => fn($root, $args) => CategoryResolver::find($args),
 
             // Mutations
-            'placeOrder' => fn($root, $args): array => OrderResolver::placeOrder($args['order']),
+            'placeOrder' => fn($root, $args): array => OrderResolver::place($args),
         ];
     }
 
-    public function executeQuery(string $query, ?array $variables = null, ?string $operationName = null)
+    public function executeQuery(string $query, ?array $variables = null, ?string $operationName = null): array
     {
         try {
             return GraphQL::executeQuery(

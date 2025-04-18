@@ -2,22 +2,25 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_CATEGORIES } from "../../GraphQL/queries";
-import localdata from "../../data.json";
 import { FiMenu, FiX } from "react-icons/fi"; // Importing icons for mobile menu
+import Loading from '../Loading';
 
 interface Category {
   name: string;
 }
 
 const Nav: React.FC = () => {
-  const { data } = useQuery(GET_CATEGORIES, { skip: !GET_CATEGORIES });
-  const categories: Category[] = data?.categories || localdata.data.categories;
   const [isOpen, setIsOpen] = useState(false);
+  const { loading, error, data } = useQuery(GET_CATEGORIES);
+
+
+  if (loading) return <Loading />;  
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <nav className="relative">
       <div className="hidden md:flex gap-6">
-        {categories.map((category) => (
+        {data.categories.map((category: Category) => (
           <NavLink
             key={category.name}
             to={`/${category.name.toLowerCase()}`}
@@ -49,7 +52,7 @@ const Nav: React.FC = () => {
           isOpen ? "translate-y-5" : "-translate-y-[200%]"
         }`}
       >
-        {categories.map((category) => (
+        {data.categories.map((category: Category) => (
           <NavLink
             key={category.name}
             to={`/${category.name.toLowerCase()}`}
@@ -58,9 +61,10 @@ const Nav: React.FC = () => {
                 isActive ? "text-green-500 font-semibold bg-gray-100" : "text-gray-700"
               } transition-colors duration-300`
             }
+            datatest-id={category.name}
             onClick={() => setIsOpen(false)}
           >
-            {category.name}
+            {category.name.toUpperCase()}
           </NavLink>
         ))}
       </div>
