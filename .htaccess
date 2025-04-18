@@ -1,0 +1,11 @@
+# Enable Rewrite Engine
+RewriteEngine On
+
+# Fix multiple slashes in the URL
+RewriteCond %{THE_REQUEST} //+ [NC]
+RewriteRule .* %{REQUEST_URI} [R=301,L,NE]
+
+# Ensure all requests go to public/index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?$1 [L,QSA]
