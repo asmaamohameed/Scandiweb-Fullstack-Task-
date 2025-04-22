@@ -1,14 +1,9 @@
 import { useCart } from "../Context/CartContext";
-import CartDropdown from "../Components/UI/CartDropdown";
+import CartDropdown from "./Cart/CartDropdown";
 import { ShoppingCart } from "lucide-react";
 import Logo from "./Svgs/Logo";
 import Navbar from "./UI/Navbar";
 import { useState } from "react";
-
-// interface HeaderProps {
-//   isCartOpen: boolean;
-//   setIsCartOpen: (value: boolean) => void;
-// }
 
 const Header = () => {
   const { cart } = useCart();

@@ -63,9 +63,9 @@ type Response {
 
 input OrderInput {
   id: ID
-  prices: [PriceInput]!
   name: String!
   quantity: Int!
+  prices: [PriceInput]!
   attributes: [AttributeInput]!
 }
 

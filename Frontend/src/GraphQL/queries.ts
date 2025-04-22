@@ -1,25 +1,9 @@
 import { gql } from '@apollo/client';
-import { PRODUCT_FIELDS } from './fragments';
 
 export const GET_CATEGORIES = gql`
   query {
     categories {
       name
-    }
-  }
-`;
-export const GET_ALL_PRODUCTS = gql`
-  query GetAllProducts {
-    products {
-      id
-      name
-      brand
-      inStock
-      gallery
-      prices {
-        amount
-        currency
-      }
     }
   }
 `;
@@ -31,10 +15,13 @@ export const GET_PRODUCTS = gql`
       inStock
       gallery
       attributes {
+        id
         name
         type
         items {
+          id
           value
+          displayValue
         }
       }
       prices {
@@ -82,34 +69,4 @@ export const GET_PRODUCT_BY_ID = gql`
     }
   }
 }
-`;
-
-// export const GET_PRODUCTS = gql`
-//   query ($category: String!) {
-//     products(category: $category) {
-//       ...ProductFields
-//     }
-//   }
-//   ${PRODUCT_FIELDS}
-// `;
-
-export const GET_SINGLE_PRODUCT = gql`
-  query ($id: String!) {
-    product(id: $id) {
-      ...ProductFields
-    }
-  }
-  ${PRODUCT_FIELDS}
-`;
-
-export const GET_CATEGORIES_AND_PRODUCTS = gql`
-  query ($category: String) {
-    categories {
-      name
-    }
-    products(category: $category) {
-      ...ProductFields
-    }
-  }
-  ${PRODUCT_FIELDS}
 `;

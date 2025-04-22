@@ -1,15 +1,12 @@
-import { Component } from 'react';
-import Router from "./routes/index";
+import AppRouter from "./routes/AppRouter";
 import Providers from "./Providers/Providers";
 
-class App extends Component {
-  render() {
-    return (
-      <Providers>
-        <Router />
-      </Providers>
-    );
-  }
-}
+const App = () => {
+  return (
+    <Providers>
+      <AppRouter />
+    </Providers>
+  );
+};
 
 export default App;

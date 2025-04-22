@@ -8,20 +8,22 @@ class OrderResolver
 {
     public static function place(array $args): array
     {
-        $order = $args['order'];
+        $orderItems = $args['order'];
         $total = 0;
 
-        foreach ($order as $item) {
+        foreach ($orderItems as $item) {
             foreach ($item['prices'] as $price) {
                 $total += $price['amount'] * ($item['quantity'] ?? 1);
             }
         }
 
-        $success = Order::create([
-            'order_details' => $order,
+        $created = Order::create([
+            'order_details' => $orderItems,
             'total' => $total,
+            'order_status' => 'received'
         ]);
 
-        return ['message' => $success ? 'Order placed successfully' : 'Failed to place order'];
-    }
+        return [
+            'message' => $created ? 'Order placed successfully!' : 'Failed to place order.',
+        ];    }
 }

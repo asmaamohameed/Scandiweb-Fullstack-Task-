@@ -4,18 +4,17 @@ import MainLayout from "../layouts/MainLayout";
 import CategoryPage from "../Pages/CategoryPage";
 import ProductPage from "../Pages/ProductPage";
 import { GET_CATEGORIES } from "../GraphQL/queries"; // Make sure the query exists
-import localData from "../data.json";
-import Loading from '../Components/Loading';
+import Loading from '../Components/Fallbacks/Loading';
+import ErrorPage from '../Components/Fallbacks/ErrorPage';
 
-const Router = () => {
+const AppRouter = () => {
   const { data, loading, error } = useQuery(GET_CATEGORIES);
 
   if (loading) return <Loading />;  
-  if (error) {
-    console.error("GraphQL Error:", error.message);
-  }
+  if (error) return <ErrorPage message="Failed to fetch products from server. Please check your connection." />;
 
-  const categories = data?.categories || localData.data.categories;
+
+  const categories = data?.categories;
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -29,6 +28,8 @@ const Router = () => {
           />
         ))}
         <Route path="product/:id" element={<ProductPage />} />
+        <Route path="*" element={<ErrorPage message="Page not found 😕" />} />
+
       </Route>
     )
   );
@@ -36,7 +37,7 @@ const Router = () => {
   return <RouterProvider router={router} />;
 };
 
-export default Router;
+export default AppRouter;
 
 
 // import { createBrowserRouter, Route, RouterProvider, createRoutesFromElements } from "react-router-dom";

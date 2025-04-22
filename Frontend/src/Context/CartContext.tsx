@@ -5,12 +5,13 @@ import {
   ReactNode,
   useEffect,
 } from "react";
-import { areAttributesEqual } from "../Components/Utiles/cartUtiles";
+import { areAttributesEqual } from "../Components/Utils/cartUtils";
 
 export interface CartItem {
   id: string;
   name: string;
   price: number;
+  prices: { currency: string; amount: number }[];
   image: string;
   quantity: number;
   attributes?: Record<string, string>; // selected values
@@ -23,8 +24,17 @@ export interface CartItem {
 
 interface CartContextType {
   cart: CartItem[];
-  addToCart: (product: CartItem, selectedAttributes?: Record<string, string>) => void;
-  updateQuantity: (id: string, attributes: Record<string, string>, amount: number) => void;
+  addToCart: (
+    product: CartItem,
+    selectedAttributes?: Record<string, string>,
+    allAttributes?: CartItem["allAttributes"]
+  ) => void;
+  updateQuantity: (
+    id: string,
+    attributes: Record<string, string>,
+    amount: number
+  ) => void;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -42,41 +52,44 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [cart]);
 
- const addToCart = (
-  product: CartItem,
-  selectedAttributes: Record<string, string> = {},
-  allAttributes: CartItem["allAttributes"] = []
-) => {
-  setCart((prevCart) => {
-    const existingProduct = prevCart.find(
-      (item) =>
-        item.id === product.id &&
-        areAttributesEqual(item.attributes, selectedAttributes)
-    );
-
-    if (existingProduct) {
-      return prevCart.map((item) =>
-        item.id === product.id &&
-        areAttributesEqual(item.attributes, selectedAttributes)
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
+  const addToCart = (
+    product: CartItem,
+    selectedAttributes: Record<string, string> = {},
+    allAttributes: CartItem["allAttributes"] = []
+  ) => {
+    setCart((prevCart) => {
+      const existingProduct = prevCart.find(
+        (item) =>
+          item.id === product.id &&
+          areAttributesEqual(item.attributes, selectedAttributes)
       );
-    }
 
-    return [
-      ...prevCart,
-      {
-        ...product,
-        attributes: selectedAttributes,
-        allAttributes,
-        quantity: 1,
-      },
-    ];
-  });
-};
+      if (existingProduct) {
+        return prevCart.map((item) =>
+          item.id === product.id &&
+          areAttributesEqual(item.attributes, selectedAttributes)
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
 
+      return [
+        ...prevCart,
+        {
+          ...product,
+          attributes: selectedAttributes,
+          allAttributes,
+          quantity: 1,
+        },
+      ];
+    });
+  };
 
-  const updateQuantity = (id: string, attributes: Record<string, string>, amount: number) => {
+  const updateQuantity = (
+    id: string,
+    attributes: Record<string, string>,
+    amount: number
+  ) => {
     setCart((prevCart) =>
       prevCart.reduce((updatedCart, item) => {
         if (item.id === id && areAttributesEqual(item.attributes, attributes)) {
@@ -91,9 +104,15 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       }, [] as CartItem[])
     );
   };
-
+  const clearCart = () => {
+    setCart([]);
+    localStorage.removeItem("cart");
+  };
+  
   return (
-    <CartContext.Provider value={{ cart, addToCart, updateQuantity }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, updateQuantity, clearCart }}
+    >
       {children}
     </CartContext.Provider>
   );

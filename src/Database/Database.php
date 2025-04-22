@@ -16,13 +16,13 @@ class Database
     {
         try {
             $dsn = "mysql:host=" . Config::get('DB_HOST') .
-                ";dbname=" . Config::get('DB_NAME') .
+                ";dbname=" . Config::get('DB_DATABASE') .
                 ";charset=" . Config::get('DB_CHARSET');
 
             $this->pdo = new PDO(
                 $dsn,
-                Config::get('DB_USER'),
-                Config::get('DB_PASS'),
+                Config::get('DB_USERNAME'),
+                Config::get('DB_PASSWORD'),
                 [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
