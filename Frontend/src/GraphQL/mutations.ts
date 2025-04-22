@@ -1,10 +1,9 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-export const CREATE_ORDER = gql`
-  mutation ($orderInput: OrderInput!) {
-    createOrder(input: $orderInput) {
-      id
-      status
+export const PLACE_ORDER = gql`
+  mutation PlaceOrder($order: [OrderInput!]!) {
+    placeOrder(order: $order) {
+      message
     }
   }
 `;

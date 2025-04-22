@@ -8,6 +8,8 @@ class Order extends Model
 
     public static function create(array $data): bool
     {
+        file_put_contents('order-debug.log', print_r($data, true));
+
         return (new static)->db->query(
             "INSERT INTO orders (order_details, order_status, total, created_at) VALUES (:details, :status, :total, :created_at)",
             [
