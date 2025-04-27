@@ -16,6 +16,6 @@ use Scandiweb\Application;
 $dotenv = Dotenv::createImmutable(base_path()); 
 $dotenv->load();
 
-// $app = new Application();
+$app = new Application();
 
-// $app->run();
+$app->run();
