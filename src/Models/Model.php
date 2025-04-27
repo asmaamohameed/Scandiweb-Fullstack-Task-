@@ -7,80 +7,37 @@ use Scandiweb\DatabaseQuery;
 abstract class Model
 {
     protected static string $table;
-    protected DatabaseQuery $db;
-    protected array $attributes = [];
+    protected static DatabaseQuery $db;
 
-    public function __construct(array $data = [])
+    protected static function db(): DatabaseQuery
     {
-        $this->db = new DatabaseQuery();
-        $this->fill($data);
-    }
-
-    // ─────────────────────────────────────────────
-    // Data Hydration and Property Magic
-    // ─────────────────────────────────────────────
-
-    public function fill(array $data): void
-    {
-        foreach ($data as $key => $value) {
-            $method = 'set' . str_replace(' ', '', ucwords(str_replace(['_', '-'], ' ', $key)));
-
-            if (method_exists($this, $method)) {
-                $this->$method($value);
-            } else {
-                $this->attributes[$key] = $value;
-            }
+        if (!isset(self::$db)) {
+            self::$db = new DatabaseQuery();
         }
+
+        return self::$db;
     }
 
-    public function __get(string $key)
+    protected static function query(string $sql, array $params = []): array
     {
-        return $this->attributes[$key] ?? null;
+        return self::db()->query($sql, $params)->get();
     }
 
-    public function __set(string $key, $value): void
+    protected static function querySingle(string $sql, array $params = []): ?array
     {
-        $this->attributes[$key] = $value;
+        $result = self::db()->query($sql, $params)->fetch();
+        return $result ?: null;
     }
-
-    public function toArray(): array
-    {
-        return $this->attributes;
-    }
-
-    // ─────────────────────────────────────────────
-    // DB Static Accessors
-    // ─────────────────────────────────────────────
-
     public static function getAll(): array
     {
-        $results = (new static)->db->query("SELECT * FROM " . static::$table)->get();
-        return array_map(fn($row) => new static($row), $results);
+        return self::query("SELECT * FROM " . static::$table);
     }
-
-    public static function find(string $value, string $column = 'id'): ?static
+   
+    public static function find(string $value, string $column = 'id'): ?array
     {
-        $row = (new static)->db->query(
+        return self::querySingle(
             "SELECT * FROM " . static::$table . " WHERE {$column} = :value LIMIT 1",
             ['value' => $value]
-        )->fetchOrFail();
-
-        return new static($row);
-    }
-
-    public static function where(string $column, string $operator, $value): array
-    {
-        $results = (new static)->db->query(
-            "SELECT * FROM " . static::$table . " WHERE {$column} {$operator} :value",
-            ['value' => $value]
-        )->get();
-
-        return array_map(fn($row) => new static($row), $results);
-    }
-
-    public function delete(int|string $id): bool
-    {
-        $this->db->query("DELETE FROM " . static::$table . " WHERE id = ?", [$id]);
-        return true;
+        );
     }
 }

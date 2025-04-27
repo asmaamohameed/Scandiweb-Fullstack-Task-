@@ -8,14 +8,14 @@ class Price extends Model
 
     public static function getByProductId(string $productId): array
     {
-        $rows = (new static)->db->query(
+        $rows = static::query(
             "SELECT * FROM prices WHERE product_id = :id",
             ['id' => $productId]
-        )->get();
+        );
 
         return array_map(function ($row) {
             $row['currency'] = json_decode($row['currency'], true);
-            return new static($row);
+            return $row;
         }, $rows);
     }
 }

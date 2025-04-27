@@ -14,7 +14,7 @@ class ProductResolver
         return Product::getByCategory($category);
     }
     
-    public static function find(array $args): ?Product
+    public static function find(array $args): ?array
     {
         return Product::findById($args['id']);
     }
