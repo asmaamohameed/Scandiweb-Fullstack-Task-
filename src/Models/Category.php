@@ -2,13 +2,12 @@
 
 namespace Scandiweb\Models;
 
-class Category extends Model
+use Scandiweb\Queries\BaseQuery;
+
+class Category extends BaseQuery
 {
     protected static string $table = 'categories';
 
-    public function setProducts(array $products): void
-    {
-        $this->attributes['products'] = array_map(fn($p) => new Product($p), $products);
-    }
+    
 }
 

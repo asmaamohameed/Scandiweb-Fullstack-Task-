@@ -8,14 +8,14 @@ class Attribute extends Model
 
     public static function getByProductId(string $productId): array
     {
-        $rows = (new static)->db->query(
+        $rows = static::query(
             "SELECT * FROM attributes WHERE product_id = :id",
             ['id' => $productId]
-        )->get();
+        );
 
         return array_map(function ($attr) {
             $attr['items'] = AttributeValue::getByAttributeId($attr['id']);
-            return new static($attr);
+            return $attr;
         }, $rows);
     }
 }

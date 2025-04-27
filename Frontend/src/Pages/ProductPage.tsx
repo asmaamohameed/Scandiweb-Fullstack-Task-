@@ -93,7 +93,7 @@ const ProductPage = () => {
 
           {/* Price */}
           <div className="mt-4">
-            <h3 className="font-bold">Price:</h3>
+            <h3 className="font-bold">PRICE:</h3>
             <p className="text-xl font-bold mt-2">
               {product.prices[0].currency.symbol}
               {product.prices[0].amount.toFixed(2)}

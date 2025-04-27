@@ -1,29 +1,22 @@
 <?php
 
 namespace Scandiweb\Models;
-
+use Scandiweb\DatabaseQuery;
 class Order extends Model
 {
     protected static string $table = 'orders';
 
     public static function create(array $data): bool
     {
-        file_put_contents('order-debug.log', print_r($data, true));
-
-        return (new static)->db->query(
-            "INSERT INTO orders (order_details, order_status, total, created_at) VALUES (:details, :status, :total, :created_at)",
+        return (new DatabaseQuery())->query(
+            "INSERT INTO orders (order_details, order_status, total, created_at) 
+             VALUES (:details, :status, :total, :created_at)",
             [
-                'details'     => json_encode($data['order_details']),
-                'status'      => $data['order_status'] ?? 'received',
-                'total'       => $data['total'],
-                'created_at'  => date('Y-m-d H:i:s'),
+                'details'    => json_encode($data['order_details']),
+                'status'     => $data['order_status'] ?? 'received',
+                'total'      => $data['total'],
+                'created_at' => date('Y-m-d H:i:s'),
             ]
         )->rowCount() > 0;
-    }
-
-    public static function getAll(): array
-    {
-        $rows = (new static)->db->query("SELECT * FROM " . static::$table)->get();
-        return array_map(fn($row) => new static($row), $rows);
     }
 }

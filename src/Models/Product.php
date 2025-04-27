@@ -8,9 +8,13 @@ class Product extends Model
 
     public static function getAll(): array
     {
-        $products = (new static)->db->query("SELECT * FROM " . static::$table)->get();
-        return array_map(fn($product) => static::mapProduct($product), $products);
+        $query = "SELECT * FROM " . static::$table;
+        $params = [];
+
+        $products = static::query($query, $params);
+        return array_map([static::class, 'mapProduct'], $products);
     }
+
     public static function getByCategory(?string $category = null): array
     {
         $query = "SELECT * FROM " . static::$table;
@@ -18,24 +22,26 @@ class Product extends Model
 
         if ($category && strtolower($category) !== 'all') {
             $query .= " WHERE category_id = (
-            SELECT id FROM categories WHERE LOWER(name) = :category
-        )";
+                SELECT id FROM categories WHERE LOWER(name) = :category
+            )";
             $params['category'] = strtolower($category);
         }
 
-        $products = (new static)->db->query($query, $params)->get();
-
-        return array_map(fn($product) => static::mapProduct($product), $products);
+        $products = static::query($query, $params);
+        return array_map([static::class, 'mapProduct'], $products);
+    }
+    public static function find(string $value, string $column = 'id'): ?array
+    {
+        return static::querySingle(
+            "SELECT * FROM " . static::$table . " WHERE {$column} = :value LIMIT 1",
+            ['value' => $value]
+        );
     }
 
-
-    public static function findById(string $id): ?static
+    public static function findById(string $id): ?array
     {
-        $product = (new static)->db->query(
-            "SELECT * FROM " . static::$table . " WHERE id = :id",
-            ['id' => $id]
-        )->fetchOrFail();    
-        return new static(static::mapProduct($product));
+        $product = static::find($id);
+        return $product ? static::mapProduct($product) : null;
     }
 
     private static function mapProduct(array $product): array

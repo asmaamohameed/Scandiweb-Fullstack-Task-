@@ -28,7 +28,7 @@ const ProductAttributes: React.FC<ProductAttributesProps> = ({
     <>
       {attributes.map((attribute) => (
         <div key={attribute.id} className="mt-4">
-          <h3 className="font-bold">{attribute.name}:</h3>
+          <h3 className="font-bold">{attribute.name.toUpperCase()}:</h3>
           <div className="flex gap-2 mt-1">
             {attribute.items.map((item) => {
               const isSelected =
@@ -57,7 +57,7 @@ const ProductAttributes: React.FC<ProductAttributesProps> = ({
                       : {}
                   }
                 >
-                  {attribute.type !== "swatch" && item.displayValue}
+                  {attribute.type !== "swatch" && item.value}
                 </button>
               );
             })}
