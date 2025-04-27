@@ -1,8 +1,0 @@
-{
-    "rewrites": [
-      {
-        "source": "/api/graphql",
-        "destination": "http://ecommerce-task.atwebpages.com/graphql"
-      }
-    ]
-  }
