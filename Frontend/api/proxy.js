@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-    const response = await fetch('http://ecommerce-task.atwebpages.com/graphql', {
+    const response = await fetch('https://ecommerce-task.atwebpages.com/graphql', {
       method: req.method,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req.body)
