@@ -1,14 +1,16 @@
 {
   "name": "vite-project",
   "private": true,
-  "homepage": "https://github.com/asmaamohameed/Scandiweb-Fullstack-Task",
+  "homepage": "https://asmaamohameed.github.io/Scandiweb-Fullstack-Task",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@apollo/client": "^3.13.5",
