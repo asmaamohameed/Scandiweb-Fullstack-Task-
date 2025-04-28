@@ -2,7 +2,7 @@
     "rewrites": [
       {
         "source": "/api/graphql",
-        "destination": "http://ecommerce-task.atwebpages.com/graphql"
+        "destination": "https://ecommerce-task.atwebpages.com/graphql"
       }
     ]
   }
