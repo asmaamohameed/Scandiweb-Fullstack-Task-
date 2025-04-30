@@ -5,7 +5,6 @@ const graphqlEndpoint = import.meta.env.PROD
   ? "https://sh1r3f.com/graphql"
   : "http://localhost:8080/graphql";
 
-
 const client = new ApolloClient({
   link: new HttpLink({ uri: graphqlEndpoint }),
   cache: new InMemoryCache(),
