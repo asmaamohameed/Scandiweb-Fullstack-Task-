@@ -2,13 +2,13 @@
 
 namespace Scandiweb\Models;
 
+use Scandiweb\Queries\ProductQuery;
+
 class Product extends Model
 {
-    protected static string $table = 'products';
-
     public static function getAll(): array
     {
-        $query = "SELECT * FROM " . static::$table;
+        $query = ProductQuery::all();
         $params = [];
 
         $products = static::query($query, $params);
@@ -17,30 +17,26 @@ class Product extends Model
 
     public static function getByCategory(?string $category = null): array
     {
-        $query = "SELECT * FROM " . static::$table;
         $params = [];
 
         if ($category && strtolower($category) !== 'all') {
-            $query .= " WHERE category_id = (
-                SELECT id FROM categories WHERE LOWER(name) = :category
-            )";
+            $query = ProductQuery::selectByCategory();
             $params['category'] = strtolower($category);
+        }
+        else {
+            $query = ProductQuery::all();
         }
 
         $products = static::query($query, $params);
         return array_map([static::class, 'mapProduct'], $products);
     }
-    public static function find(string $value, string $column = 'id'): ?array
-    {
-        return static::querySingle(
-            "SELECT * FROM " . static::$table . " WHERE {$column} = :value LIMIT 1",
-            ['value' => $value]
-        );
-    }
 
     public static function findById(string $id): ?array
     {
-        $product = static::find($id);
+        $query = ProductQuery::selectById();
+        $params = ['id' => $id];
+
+        $product = static::querySingle($query, $params) ?? null;
         return $product ? static::mapProduct($product) : null;
     }
 
@@ -48,7 +44,7 @@ class Product extends Model
     {
         $product['attributes'] = Attribute::getByProductId($product['id']);
         $product['prices'] = Price::getByProductId($product['id']);
-        $product['category'] = Category::find($product['category_id']);
+        $product['category'] = Category::findById($product['category_id']);
         $product['gallery'] = json_decode($product['gallery'], true);
         return $product;
     }

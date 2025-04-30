@@ -32,12 +32,4 @@ abstract class Model
     {
         return static::query("SELECT * FROM " . static::$table);
     }
-   
-    public static function find(string $value, string $column = 'id'): ?array
-    {
-        return static::querySingle(
-            "SELECT * FROM " . static::$table . " WHERE {$column} = :value LIMIT 1",
-            ['value' => $value]
-        );
-    }
 }

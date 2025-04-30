@@ -1,11 +1,12 @@
-import { ApolloClient, InMemoryCache, HttpLink, from } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 
-const httpLink = new HttpLink({
-  uri:"http://ecommerce-task.atwebpages.com/graphql",
-});
+// Set the GraphQL endpoint based on the environment
+const graphqlEndpoint = import.meta.env.PROD
+  ? "https://sh1r3f.com/graphql"
+  : "http://localhost:8080/graphql";
 
 const client = new ApolloClient({
-  link: from([httpLink]),
+  link: new HttpLink({ uri: graphqlEndpoint }),
   cache: new InMemoryCache(),
 });
 

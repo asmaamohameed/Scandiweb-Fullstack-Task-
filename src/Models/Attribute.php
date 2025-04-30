@@ -2,16 +2,17 @@
 
 namespace Scandiweb\Models;
 
+use Scandiweb\Queries\AttributeQuery;
+
 class Attribute extends Model
 {
-    protected static string $table = 'attributes';
-
     public static function getByProductId(string $productId): array
     {
-        $rows = static::query(
-            "SELECT * FROM attributes WHERE product_id = :id",
-            ['id' => $productId]
-        );
+        $query = AttributeQuery::selectAttributes();
+        $params = ['id' => $productId];
+
+        $rows = static::query($query, $params);
+        
 
         return array_map(function ($attr) {
             $attr['items'] = AttributeValue::getByAttributeId($attr['id']);
