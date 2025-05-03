@@ -2,11 +2,11 @@ import { createBrowserRouter, Route, createRoutesFromElements } from "react-rout
 import MainLayout from "../layouts/MainLayout";
 import CategoryPage from "../Pages/CategoryPage";
 import ProductPage from "../Pages/ProductPage";
-import ErrorPage from "../Components/Fallbacks/ErrorPage";
+import ErrorPage from '../Components/Fallbacks/ErrorPage';
 
 
   const router = (categories: { name: string }[]) =>
-  createBrowserRouter(
+   createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
         <Route index element={<CategoryPage category="all" />} />
