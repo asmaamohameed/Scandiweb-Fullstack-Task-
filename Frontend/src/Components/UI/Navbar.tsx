@@ -5,6 +5,7 @@ import { GET_CATEGORIES } from "../../GraphQL/queries";
 import { FiMenu, FiX } from "react-icons/fi"; // Importing icons for mobile menu
 import Loading from "../Fallbacks/Loading";
 
+
 interface Category {
   name: string;
 }
