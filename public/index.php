@@ -1,5 +1,7 @@
 <?php
 
+use Scandiweb\Database\Database;
+
 session_start();
 
 header("Access-Control-Allow-Origin: *");
@@ -18,4 +20,7 @@ $dotenv->load();
 
 $app = new Application();
 
+phpinfo();
 $app->run();
+
+

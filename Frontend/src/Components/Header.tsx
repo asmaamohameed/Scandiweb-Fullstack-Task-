@@ -19,6 +19,7 @@ const Header = () => {
         <div
           className="relative cursor-pointer text-gray-600 hover:text-green-500"
           onClick={() => setIsCartOpen(!isCartOpen)}
+          data-testid="cart-btn"
         >
           <ShoppingCart size={34} />
           {cart.length > 0 && (
