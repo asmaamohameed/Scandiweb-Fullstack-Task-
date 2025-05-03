@@ -12,7 +12,7 @@ class Database
     private PDO $pdo;
     private static ?Database $instance = null;
 
-    private function __construct()
+    public function __construct()
     {
         try {
             $dsn = "mysql:host=" . Config::get('DB_HOST') .

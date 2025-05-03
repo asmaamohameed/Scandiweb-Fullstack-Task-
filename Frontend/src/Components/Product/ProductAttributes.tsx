@@ -41,9 +41,7 @@ const ProductAttributes: React.FC<ProductAttributesProps> = ({
                   className={`border px-4 py-2 text-sm hover:cursor-pointer ${
                     attribute.type === "swatch"
                       ? `w-10 h-10 ${
-                          isSelected
-                            ? "border-green-500"
-                            : "border-gray-300"
+                          isSelected ? "border-green-500" : "border-gray-300"
                         }`
                       : `${
                           isSelected
@@ -56,6 +54,8 @@ const ProductAttributes: React.FC<ProductAttributesProps> = ({
                       ? { backgroundColor: item.value }
                       : {}
                   }
+                  data-testid={`attribute-${attribute.name}-${item.value}`}
+                  aria-pressed={isSelected}
                 >
                   {attribute.type !== "swatch" && item.value}
                 </button>

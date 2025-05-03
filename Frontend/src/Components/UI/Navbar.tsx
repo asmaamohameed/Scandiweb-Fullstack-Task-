@@ -1,8 +1,8 @@
-import { useState } from "react";
+//import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { GET_CATEGORIES } from "../../GraphQL/queries";
-import { FiMenu, FiX } from "react-icons/fi"; // Importing icons for mobile menu
+//import { FiMenu, FiX } from "react-icons/fi"; // Importing icons for mobile menu
 import Loading from "../Fallbacks/Loading";
 
 
@@ -10,7 +10,7 @@ interface Category {
   name: string;
 }
 const Nav: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  //const [isOpen, setIsOpen] = useState(false);
   const { loading, error, data } = useQuery(GET_CATEGORIES);
 
   if (loading) return <Loading />;
@@ -49,16 +49,16 @@ const Nav: React.FC = () => {
       </div>
 
       {/* Mobile Menu Button */}
-      <button
+      {/* <button
         className="md:hidden text-2xl focus:outline-none cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
       >
         {isOpen ? <FiX /> : <FiMenu />}
-      </button>
+      </button> */}
 
       {/* Mobile Navigation Menu */}
-      <div
+      {/* <div
         className={`absolute top-full left-0 w-auto z-20 bg-white shadow-md p-4 flex flex-col gap-4 md:hidden ${
           isOpen ? "translate-y-5" : "-translate-y-[200%]"
         }`}
@@ -85,7 +85,7 @@ const Nav: React.FC = () => {
             )}
           ></NavLink>
         ))}
-      </div>
+      </div> */}
     </nav>
   );
 };

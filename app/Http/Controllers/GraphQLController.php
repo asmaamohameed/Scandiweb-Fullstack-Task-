@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Scandiweb\GraphQl\GraphQLHandler;
-use Scandiweb\Http\Request;
 use Scandiweb\Http\Response;
 
 class GraphQLController
