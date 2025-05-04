@@ -14,10 +14,12 @@ const router = (categories: Category[]) =>
       path: "/",
       element: <MainLayout categories={categories} />,
       errorElement: <ErrorPage />,
-      children: categories.map((category) => ({
+      children:[{index: true, element: <CategoryPage category="all" />},
+        ...categories.map((category) => ({
         path: category.name.toLowerCase(),
         element: <CategoryPage category={category.name} />,
       })),
+      ] 
     },
   ]);
 
