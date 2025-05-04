@@ -1,4 +1,5 @@
 import React from "react";
+import { useCart } from "../../Context/CartContext";
 
 interface AddToCartButtonProps {
   inStock: boolean;
@@ -11,6 +12,11 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   onClick,
   testId = "add-to-cart",
 }) => {
+  const {setIsCartOpen} = useCart(); 
+  const handleClick = () => {
+    onClick();
+    setIsCartOpen(true); 
+  }
   return (
     <button
       className={`px-4 py-3 w-full mt-6 cursor-pointer ${
@@ -18,7 +24,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
           ? "bg-green-500 text-white hover:bg-green-600"
           : "bg-gray-400 text-gray-600 hover:cursor-not-allowed"
       }`}
-      onClick={onClick}
+      onClick={handleClick}
       disabled={!inStock}
       data-testid={testId}
     >
