@@ -60,8 +60,9 @@ const ProductCard = ({ product }: { product: any }) => {
               ? "bg-green-500 text-white hover:bg-green-600"
               : "bg-gray-400 text-gray-600 hover:cursor-not-allowed"
           }`}
-          onClick={handleAddToCart}
+          onClick={handleAddToCart}       
           disabled={!product.inStock}
+          data-testid="add-to-cart" 
         >
           <ShoppingCart size={24} />
         </button>
