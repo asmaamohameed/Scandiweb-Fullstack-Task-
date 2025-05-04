@@ -26,7 +26,7 @@ const Nav: React.FC = () => {
             <Link
               key={category.name}
               to={path}
-              //data-testid={isActive ? "active-category-link" : "category-link"}
+              data-testid={isActive ? "active-category-link" : "category-link"}
               className={`relative pb-2 ${
                 isActive
                   ? "text-green-500 after:w-full after:bg-green-500"
