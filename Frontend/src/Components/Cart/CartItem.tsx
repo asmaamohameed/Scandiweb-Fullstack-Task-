@@ -51,7 +51,7 @@ const CartItem = ({ item }: CartItemProps) => {
                       key={attrItem.id}
                       data-testid={
                         isSelected
-                          ? `product-attribute-${attributeNameKebab}-${valueKebab}-selected`
+                          ? `product-attribute-${attributeNameKebab}-${valueKebab}`
                           : `product-attribute-${attributeNameKebab}-${valueKebab}`
                       }
                       className={clsx(
