@@ -9,8 +9,7 @@ interface Category {
 
 const Nav: React.FC = () => {
   const { loading, error, data } = useQuery(GET_CATEGORIES);
-  const getTestId = (isActive: boolean) =>
-    isActive ? "active-category-link" : "category-link";
+  const isActive = (path: string) => location.pathname === path;
   
   if (loading) return <Loading />;
   if (error)
@@ -27,7 +26,7 @@ const Nav: React.FC = () => {
           <NavLink
             key={category.name}
             to={`/${category.name.toLowerCase()}`}
-            data-testid={getTestId}
+            data-testid={isActive(`/${category.name.toLowerCase()}`) ? "active-category-link" : "category-link"}
             className={({ isActive }) => {
               const baseClass =
                 "relative pb-2 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:transition-all after:duration-300";
