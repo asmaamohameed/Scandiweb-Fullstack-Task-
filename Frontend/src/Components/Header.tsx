@@ -35,6 +35,7 @@ const Header = () => {
         <div
             className="absolute top-20 inset-x-0 h-full bg-black opacity-25 z-50"
             onClick={() => setIsCartOpen(false)}
+            data-testid="cart-overlay"
           ></div>
         <CartDropdown />
         </>
