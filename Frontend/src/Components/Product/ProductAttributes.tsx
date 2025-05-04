@@ -54,8 +54,7 @@ const ProductAttributes: React.FC<ProductAttributesProps> = ({
                       ? { backgroundColor: item.value }
                       : {}
                   }
-                  data-testid={`attribute-${attribute.name}-${item.value}`}
-                  aria-pressed={isSelected}
+                  data-testid={`product-attribute-${attribute.name}-${item.value}`}
                 >
                   {attribute.type !== "swatch" && item.value}
                 </button>
