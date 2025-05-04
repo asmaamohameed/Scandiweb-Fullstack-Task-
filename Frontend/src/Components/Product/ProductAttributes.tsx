@@ -29,7 +29,9 @@ const ProductAttributes: React.FC<ProductAttributesProps> = ({
       {attributes.map((attribute) => (
         <div key={attribute.id} className="mt-4">
           <h3 className="font-bold">{attribute.name.toUpperCase()}:</h3>
-          <div className="flex gap-2 mt-1">
+          <div className="flex gap-2 mt-1"
+            data-testid={`product-attribute-${attribute.name.toLowerCase().replace(/\s+/g, "-")}`}
+          >
             {attribute.items.map((item) => {
               const isSelected =
                 selectedAttributes[attribute.name] === item.value;
