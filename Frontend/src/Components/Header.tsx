@@ -41,7 +41,7 @@ const Header = ({ categories }: { categories: Category[] }) => {
             onClick={() => setIsCartOpen(false)}
             data-testid="cart-overlay"
           ></div>
-        <CartDropdown />
+        <CartDropdown setIsCartOpen={setIsCartOpen} />
         </>
         
         }

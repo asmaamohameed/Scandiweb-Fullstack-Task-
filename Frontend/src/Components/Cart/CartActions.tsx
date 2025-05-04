@@ -4,9 +4,9 @@ import { useCart } from "../../Context/CartContext";
 import { prepareOrderData } from "../Utils/orderUtils";
 import { PLACE_ORDER } from "../../GraphQL/mutations";
 
-const CartActions = () => {
+const CartActions = ({ setIsCartOpen }: { setIsCartOpen: (value: boolean) => void }) => {
   const { cart, clearCart } = useCart();
-
+  
   const [placeOrder, { loading: placingOrder }] = useMutation(PLACE_ORDER);
   const [toast, setToast] = useState("");
 
@@ -26,8 +26,9 @@ const CartActions = () => {
       if (data?.placeOrder?.message) {
         showToast(data.placeOrder.message);
         clearCart();
+        setIsCartOpen(false);
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Full error:", err);
       showToast("Failed to place order.");
     }
