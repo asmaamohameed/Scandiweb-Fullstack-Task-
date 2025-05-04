@@ -5,7 +5,6 @@ import { GET_CATEGORIES } from "../../GraphQL/queries";
 //import { FiMenu, FiX } from "react-icons/fi"; // Importing icons for mobile menu
 import Loading from "../Fallbacks/Loading";
 
-
 interface Category {
   name: string;
 }
@@ -15,36 +14,34 @@ const Nav: React.FC = () => {
 
   if (loading) return <Loading />;
   if (error)
-    return (
-      <nav className="p-4 text-red-700">
-        Categories failed to load.
-      </nav>
-    );
+    return <nav className="p-4 text-red-700">Categories failed to load.</nav>;
 
   return (
     <nav className="relative">
       <div className="hidden md:flex gap-6">
         {data.categories.map((category: Category) => (
-          <NavLink
-            key={category.name}
-            to={`/${category.name.toLowerCase()}`}
-            className={({ isActive }) =>
-              `relative pb-2 ${
-                isActive
-                  ? "text-green-500 after:w-full after:bg-green-500"
-                  : "after:w-0 after:bg-transparent"
-              } after:absolute after:left-0 after:bottom-0 after:h-[2px] after:transition-all after:duration-300`
-            }
-            children={({ isActive }) => (
-              <span
-                data-testid={
-                  isActive ? "active-category-link" : "category-link"
-                }
-              >
-                {category.name.toUpperCase()}
-              </span>
-            )}
-          ></NavLink>
+          <NavLink key={category.name} to={`/${category.name.toLowerCase()}`}>
+            {({ isActive }) => {
+              const baseClass =
+                "relative pb-2 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:transition-all after:duration-300";
+              const activeStyles =
+                "text-green-500 after:w-full after:bg-green-500";
+              const inactiveStyles = "after:w-0 after:bg-transparent";
+
+              return (
+                <span
+                  className={`${baseClass} ${
+                    isActive ? activeStyles : inactiveStyles
+                  }`}
+                  data-testid={
+                    isActive ? "active-category-link" : "category-link"
+                  }
+                >
+                  {category.name.toUpperCase()}
+                </span>
+              );
+            }}
+          </NavLink>
         ))}
       </div>
 

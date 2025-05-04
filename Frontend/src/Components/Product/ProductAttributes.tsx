@@ -45,7 +45,7 @@ const ProductAttributes: React.FC<ProductAttributesProps> = ({
                         }`
                       : `${
                           isSelected
-                            ? "bg-black text-white border-black"
+                            ? `bg-black text-white border-black `
                             : "border-gray-500"
                         }`
                   }`}
