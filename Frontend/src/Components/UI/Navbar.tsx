@@ -11,8 +11,8 @@ const Navbar = ({ categories }: { categories: Category[] }) => {
       <div className="hidden md:flex gap-6">
         {categories.map((category: Category) => {
           const path = `/${category.name.toLowerCase()}`;
-          const isActive = location.pathname === path;
-
+          const isActive = location.pathname === path || (category.name === 'all' && location.pathname === '/');
+          
           return (
             <Link
               key={category.name}
