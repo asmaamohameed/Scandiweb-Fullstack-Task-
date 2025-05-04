@@ -1,24 +1,15 @@
 import { Link, useLocation } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import { GET_CATEGORIES } from "../../GraphQL/queries";
-import Loading from "../Fallbacks/Loading";
 
 interface Category {
   name: string;
 }
 
-const Nav: React.FC = () => {
+const Navbar = ({ categories }: { categories: Category[] }) => {
   const location = useLocation();
-  const { loading, error, data } = useQuery(GET_CATEGORIES);
-
-  if (loading) return <Loading />;
-  if (error)
-    return <nav className="p-4 text-red-700">Categories failed to load.</nav>;
-
   return (
     <nav className="relative">
       <div className="hidden md:flex gap-6">
-        {data.categories.map((category: Category) => {
+        {categories.map((category: Category) => {
           const path = `/${category.name.toLowerCase()}`;
           const isActive = location.pathname === path;
 
@@ -26,7 +17,7 @@ const Nav: React.FC = () => {
             <Link
               key={category.name}
               to={path}
-              data-testid={isActive ? "active-category-link" : "category-link"}
+              data-testid={isActive ? 'active-category-link' : 'category-link'}
               className={`relative pb-2 ${
                 isActive
                   ? "text-green-500 after:w-full after:bg-green-500"
@@ -42,4 +33,4 @@ const Nav: React.FC = () => {
   );
 };
 
-export default Nav;
+export default Navbar;

@@ -5,13 +5,14 @@ import Logo from "./Svgs/Logo";
 import Navbar from "./UI/Navbar";
 import { useState } from "react";
 
-const Header = () => {
+
+const Header = ({ categories }: { categories: Category[] }) => {
   const { cart } = useCart();
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   return (
     <header className=" container max-w-[1400px] mx-auto p-6 flex items-center justify-between z-20">
-      <Navbar />
+      <Navbar categories={categories}/>
       <Logo />
 
       {/* Cart Icon with Dropdown */}
@@ -19,7 +20,7 @@ const Header = () => {
         <div
           className="relative cursor-pointer text-gray-600 hover:text-green-500"
           onClick={() => setIsCartOpen(!isCartOpen)}
-          // data-testid="cart-btn"
+          data-testid="cart-btn"
         >
           <ShoppingCart size={34} />
           {cart.length > 0 && (

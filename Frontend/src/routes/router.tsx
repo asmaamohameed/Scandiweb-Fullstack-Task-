@@ -8,7 +8,7 @@ import ErrorPage from '../Components/Fallbacks/ErrorPage';
   const router = (categories: { name: string }[]) =>
    createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<MainLayout />}>
+      <Route path="/" element={<MainLayout categories={categories} />}>
         <Route index element={<CategoryPage category="all" />} />
         {categories.map((category) => (
           <Route
