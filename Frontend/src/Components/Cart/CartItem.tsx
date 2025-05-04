@@ -38,21 +38,21 @@ const CartItem = ({ item }: CartItemProps) => {
                   const isSelected =
                     item.attributes?.[attribute.name] === attrItem.value;
 
-                  const attributeNameKebab = attribute.name
-                    .toLowerCase()
-                    .replace(/\s+/g, "-");
-                  const valueKebab = attrItem.value
-                    .toLowerCase()
-                    .replace(/\s+/g, "-");
+                  // const attributeNameKebab = attribute.name
+                  //   .toLowerCase()
+                  //   .replace(/\s+/g, "-");
+                  // const valueKebab = attrItem.value
+                  //   .toLowerCase()
+                  //   .replace(/\s+/g, "-");
 
                   return (
                     <span
                       key={attrItem.id}
-                      data-testid={
-                        isSelected
-                          ? `cart-item-attribute-${attributeNameKebab}-${valueKebab}-selected`
-                          : `cart-item-attribute-${attributeNameKebab}-${valueKebab}`
-                      }
+                      // data-testid={
+                      //   isSelected
+                      //     ? `cart-item-attribute-${attributeNameKebab}-${valueKebab}-selected`
+                      //     : `cart-item-attribute-${attributeNameKebab}-${valueKebab}`
+                      // }
                       className={clsx(
                         "text-xs border px-2 py-1 cursor-pointer",
                         isColor && "w-6 h-6",
@@ -81,7 +81,7 @@ const CartItem = ({ item }: CartItemProps) => {
           <button
             className="cursor-pointer p-1 border"
             onClick={handleIncrease}
-            data-testid="cart-item-amount-increase"
+            // data-testid="cart-item-amount-increase"
           >
             <Plus size={16} />
           </button>
@@ -96,7 +96,7 @@ const CartItem = ({ item }: CartItemProps) => {
           <button
             className="cursor-pointer p-1 border"
             onClick={handleDecrease}
-            data-testid="cart-item-amount-decrease"
+            // data-testid="cart-item-amount-decrease"
           >
             <Minus size={16} />
           </button>
