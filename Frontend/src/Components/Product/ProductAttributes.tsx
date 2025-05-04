@@ -38,6 +38,7 @@ const ProductAttributes: React.FC<ProductAttributesProps> = ({
                 <button
                   key={item.id}
                   onClick={() => onSelect(attribute.name, item.value)}
+                  data-testid={`product-attribute-${attribute.name.toLowerCase().replace(/\s+/g, "-")}-${item.value}`}
                   className={`border px-4 py-2 text-sm hover:cursor-pointer ${
                     attribute.type === "swatch"
                       ? `w-10 h-10 ${
@@ -54,8 +55,7 @@ const ProductAttributes: React.FC<ProductAttributesProps> = ({
                       ? { backgroundColor: item.value }
                       : {}
                   }
-                  data-testid={`product-attribute-${attribute.id}-${item.value}`}                  
-                >                
+                >
                   {attribute.type !== "swatch" && item.value}
                 </button>
               );
