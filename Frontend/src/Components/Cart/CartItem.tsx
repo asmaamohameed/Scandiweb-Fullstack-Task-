@@ -43,15 +43,16 @@ const CartItem = ({ item }: CartItemProps) => {
                     .replace(/\s+/g, "-");
                   const valueKebab = attrItem.value
                     .toLowerCase()
-                    .replace(/\s+/g, "-");
+                    .replace(/\s+/g, "-")
+                    .replace(/[^a-z0-9-]/g, "");;
 
                   return (
                     <span
                       key={attrItem.id}
                       data-testid={
                         isSelected
-                          ? `cart-item-attribute-${attributeNameKebab}-${valueKebab}-selected`
-                          : `cart-item-attribute-${attributeNameKebab}-${valueKebab}`
+                          ? `product-attribute-${attributeNameKebab}-${valueKebab}-selected`
+                          : `product-attribute-${attributeNameKebab}-${valueKebab}`
                       }
                       className={clsx(
                         "text-xs border px-2 py-1 cursor-pointer",
