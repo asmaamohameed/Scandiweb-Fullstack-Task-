@@ -9,7 +9,7 @@ interface AddToCartButtonProps {
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   inStock,
   onClick,
-  // testId = "add-to-cart",
+  testId = "add-to-cart",
 }) => {
   return (
     <button
@@ -20,7 +20,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
       }`}
       onClick={onClick}
       disabled={!inStock}
-      // data-testid={testId}
+      data-testid={testId}
     >
       ADD TO CART
     </button>
