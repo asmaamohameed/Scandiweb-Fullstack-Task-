@@ -25,8 +25,7 @@ const Nav: React.FC = () => {
           <NavLink
             key={category.name}
             to={`/${category.name.toLowerCase()}`}
-            // Add data-testid to NavLink based on isActive
-            data-testid={({ isActive }) =>
+            data-testid={({ isActive }: { isActive: boolean }) =>
               isActive ? "active-category-link" : "category-link"
             }
             className={({ isActive }) => {
