@@ -43,8 +43,7 @@ const CartItem = ({ item }: CartItemProps) => {
                     .replace(/\s+/g, "-");
                   const valueKebab = attrItem.value
                     .toLowerCase()
-                    .replace(/\s+/g, "-")
-                    .replace(/[^a-z0-9-]/g, "");;
+                    .replace(/\s+/g, "-");
 
                   return (
                     <span
