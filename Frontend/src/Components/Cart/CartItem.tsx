@@ -26,7 +26,7 @@ const CartItem = ({ item }: CartItemProps) => {
           {item.allAttributes?.map((attribute) => (
             <div
               key={attribute.name}
-              data-testid={`cart-item-attribute-${attribute.name
+              data-testid={`product-attribute-${attribute.name
                 .toLowerCase()
                 .replace(/\s+/g, "-")}`}
               className="mt-2"
