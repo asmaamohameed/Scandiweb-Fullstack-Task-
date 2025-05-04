@@ -5,6 +5,9 @@ import Logo from "./Svgs/Logo";
 import Navbar from "./UI/Navbar";
 import { useState } from "react";
 
+type Category = {
+  name: string;
+};
 
 const Header = ({ categories }: { categories: Category[] }) => {
   const { cart } = useCart();
