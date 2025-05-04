@@ -1,10 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Header from "../Components/Header";
 
-const MainLayout = () => {
-    return (
+type Category = {
+  name: string;
+};
+
+const MainLayout = ({ categories }: { categories: Category[] }) => {
+  return (
       <div className="layout relative">
-        <Header />
+        <Header categories={categories} />
         <Outlet />
       </div>
     );
