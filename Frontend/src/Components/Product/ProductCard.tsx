@@ -32,6 +32,8 @@ const ProductCard = ({ product }: { product: any }) => {
       <div className="relative">
         <Link
           to={`/product/${product.id}`}
+          data-testid={`product-${product.name.replace(/\s+/g, "-").toLowerCase()}`}
+
         >
           <img
             src={product.gallery[0]}
@@ -59,7 +61,6 @@ const ProductCard = ({ product }: { product: any }) => {
               : "bg-gray-400 text-gray-600 hover:cursor-not-allowed"
           }`}
           onClick={handleAddToCart}
-          data-testid={`product-${product.name.replace(/\s+/g, "-").toLowerCase()}`}
           disabled={!product.inStock}
         >
           <ShoppingCart size={24} />
