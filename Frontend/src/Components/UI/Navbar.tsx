@@ -33,4 +33,4 @@ const Navbar = ({ categories }: { categories: Category[] }) => {
   );
 };
 
-export default Navbar;
+export default Navbar ;
