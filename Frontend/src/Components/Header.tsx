@@ -3,15 +3,14 @@ import CartDropdown from "./Cart/CartDropdown";
 import { ShoppingCart } from "lucide-react";
 import Logo from "./Svgs/Logo";
 import Navbar from "./UI/Navbar";
-import { useState } from "react";
 
 type Category = {
   name: string;
 };
 
 const Header = ({ categories }: { categories: Category[] }) => {
-  const { cart } = useCart();
-  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { cart, isCartOpen, setIsCartOpen } = useCart();
+
 
   return (
     <header className=" container max-w-[1400px] mx-auto p-6 flex items-center justify-between z-20">
