@@ -3,7 +3,7 @@ import { useMemo } from "react";
 import CartItem from "./CartItem";
 import CartActions from "./CartActions";
 
-const CartDropdown = () => {
+const CartDropdown = ({ setIsCartOpen }: { setIsCartOpen: (value: boolean) => void }) => {
   const { cart } = useCart();
 
   const totalPrice = useMemo(
@@ -35,7 +35,7 @@ const CartDropdown = () => {
         <span>Total</span>
         <span data-testid="cart-total">${totalPrice}</span>
       </div>{" "}
-      <CartActions />
+      <CartActions setIsCartOpen={setIsCartOpen}/>
     </div>
   );
 };
