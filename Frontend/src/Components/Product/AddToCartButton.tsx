@@ -3,29 +3,32 @@ import { useCart } from "../../Context/CartContext";
 
 interface AddToCartButtonProps {
   inStock: boolean;
+  disabled?: boolean;
   onClick: () => void;
   testId?: string;
 }
 
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({
-  inStock,
   onClick,
   testId = "add-to-cart",
+  disabled = false,
 }) => {
-  const {setIsCartOpen} = useCart(); 
+  const { setIsCartOpen } = useCart();
   const handleClick = () => {
-    onClick();
-    setIsCartOpen(true); 
-  }
+    if (!disabled) {
+      onClick();
+      setIsCartOpen(true);
+    }
+  };
   return (
     <button
-      className={`px-4 py-3 w-full mt-6 cursor-pointer ${
-        inStock
-          ? "bg-green-500 text-white hover:bg-green-600"
-          : "bg-gray-400 text-gray-600 hover:cursor-not-allowed"
+      className={`px-4 py-3 w-full mt-6 font-semibold rounded-md transition-all duration-200 ${
+        disabled
+          ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+          : "bg-green-500 text-white hover:bg-green-600"
       }`}
       onClick={handleClick}
-      disabled={!inStock}
+      disabled={disabled}
       data-testid={testId}
     >
       ADD TO CART

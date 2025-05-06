@@ -2,7 +2,7 @@ import parse from "html-react-parser";
 import DOMPurify from "dompurify";
 import { useParams } from "react-router-dom";
 import { useCart } from "../Context/CartContext";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_PRODUCT_BY_ID } from "../GraphQL/queries";
 import Loading from "../Components/Fallbacks/Loading";
@@ -24,18 +24,6 @@ const ProductPage = () => {
     Record<string, string>
   >({});
 
-  useEffect(() => {
-    if (product) {
-      const defaultAttributes: Record<string, string> = {};
-      product.attributes.forEach((attr: any) => {
-        if (attr.items.length > 0) {
-          defaultAttributes[attr.name] = attr.items[0].value;
-        }
-      });
-      setSelectedAttributes(defaultAttributes);
-    }
-  }, [product]);
-
   if (loading) return <Loading />;
   if (error)
     return (
@@ -47,6 +35,12 @@ const ProductPage = () => {
       <ErrorPage message="Failed to fetch product from server. Product Not Found" />
     );
   }
+  const areAllAttributesSelected =
+  product &&
+  product.attributes.every(
+    (attr: any) => selectedAttributes[attr.name] !== undefined
+  );
+
 
   const handleAttributeSelect = (attributeName: string, value: string) => {
     setSelectedAttributes((prev) => ({
@@ -103,6 +97,7 @@ const ProductPage = () => {
           {/* Add to Cart */}
           <AddToCartButton
             inStock={product.inStock}
+            disabled={!product.inStock || !areAllAttributesSelected}
             onClick={() =>
               product.inStock &&
               addToCart(
