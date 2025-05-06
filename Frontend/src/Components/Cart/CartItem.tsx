@@ -16,7 +16,7 @@ const CartItem = ({ item }: CartItemProps) => {
 
   return (
     <div className="relative cart-item flex py-4">
-      <div className="relative flex items-center pr-2 w-35 h-auto">
+      <div className="relative flex items-center pr-2 w-30 md:w-30 lg:w-35  h-auto">
         <div className="flex-1">
           <p className="text-base font-semibold pb-2 flex-wrap">{item.name}</p>
           <h3 className="font-bold py-2">Price:</h3>
@@ -76,14 +76,14 @@ const CartItem = ({ item }: CartItemProps) => {
           ))}
         </div>
       </div>
-      <div className="relative flex items-center w-44 h-44">
+      <div className="relative flex items-center w-25 md:w-39 lg:w-44  h-25 md:h-39 lg:h-44">
         <div className="flex flex-col items-center justify-between h-full pr-2">
           <button
             className="cursor-pointer p-1 border"
             onClick={handleIncrease}
             data-testid="cart-item-amount-increase"
           >
-            <Plus size={16} />
+            <Plus className="responsive-icon w-3 lg:w-4 h-3 lg:h-4" />{" "}
           </button>
 
           <span
@@ -98,13 +98,14 @@ const CartItem = ({ item }: CartItemProps) => {
             onClick={handleDecrease}
             data-testid="cart-item-amount-decrease"
           >
-            <Minus size={16} />
+            <Minus className="responsive-icon w-3 lg:w-4 h-3 lg:h-4" />{" "}
+
           </button>
         </div>
         <img
           src={item.image}
           alt={item.name}
-          className="w-44 h-44 object-cover"
+          className="lg:w-44 md:w-39 w-25 lg:h-44 md:h-39 h-25 object-cover"
         />
       </div>
     </div>
