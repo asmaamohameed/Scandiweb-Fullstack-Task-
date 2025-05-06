@@ -15,14 +15,14 @@ const CartDropdown = ({ setIsCartOpen }: { setIsCartOpen: (value: boolean) => vo
   );
 
   return (
-    <div className="absolute top-15 right-10 bg-white shadow-lg p-6 w-105  z-50">
+    <div className="absolute top-15 right-10 bg-white shadow-lg p-6 w-80  md:w-95 lg:w-105 h-auto z-50">
       <h2 className="text-lg font-bold mb-10">
         My Bag, <span className="font-normal">{cart.length} items</span>
       </h2>
       {cart.length === 0 ? (
         <p className="text-gray-500">Your cart is empty</p>
       ) : (
-        <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
+        <div className="space-y-4 max-h-[55vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200">
           {cart.map((item) => (
             <CartItem
               key={`${item.id}-${JSON.stringify(item.attributes)}`}
