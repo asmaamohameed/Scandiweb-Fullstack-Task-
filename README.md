@@ -54,8 +54,8 @@ Import the scandiweb_ecommerce_task.sql file located in the root directory to se
 Ensure your application passes the Auto QA test by visiting: http://165.227.98.170/
 
 8. Screenshots
-Include relevant screenshots of your application here.
+![image](https://github.com/user-attachments/assets/71065402-35b6-4a39-9b7f-f578c9356c36)
 
-9. License
-Specify the license under which your project is distributed.
+
+
 
