@@ -4,9 +4,13 @@ import { useCart } from "../../Context/CartContext";
 import { prepareOrderData } from "../Utils/orderUtils";
 import { PLACE_ORDER } from "../../GraphQL/mutations";
 
-const CartActions = ({ setIsCartOpen }: { setIsCartOpen: (value: boolean) => void }) => {
+const CartActions = ({
+  setIsCartOpen,
+}: {
+  setIsCartOpen: (value: boolean) => void;
+}) => {
   const { cart, clearCart } = useCart();
-  
+
   const [placeOrder, { loading: placingOrder }] = useMutation(PLACE_ORDER);
   const [toast, setToast] = useState("");
 

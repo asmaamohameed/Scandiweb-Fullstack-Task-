@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scandiweb\Queries;
 
 class OrderQuery 
@@ -11,7 +13,5 @@ class OrderQuery
         return"INSERT INTO  " .static::$table. " (order_details, order_status, total, created_at) 
                   VALUES (:details, :status, :total, :created_at)";
     }
-
-  
-
+    
 }

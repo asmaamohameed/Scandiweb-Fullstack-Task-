@@ -1,9 +1,10 @@
 <?php
 
-namespace Scandiweb\GraphQl\Resolvers;
+declare(strict_types=1);
+
+namespace Scandiweb\GraphQL\Resolvers;
 
 use Scandiweb\Models\Category;
-use Scandiweb\Queries\BaseQuery;
 
 class CategoryResolver
 {
@@ -11,4 +12,10 @@ class CategoryResolver
     {
         return Category::getAll();
     }
+
+    public static function find(array $args): ?array
+    {
+        return Category::findById($args['id']);
+    }
+    
 }

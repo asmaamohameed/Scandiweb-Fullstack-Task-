@@ -15,6 +15,7 @@ const App = () => {
     );
 
   const route = router(data?.categories || []);
-  return <RouterProvider router={route} />;};
+  return <RouterProvider router={route} />;
+};
 
 export default App;

@@ -11,10 +11,9 @@ type Category = {
 const Header = ({ categories }: { categories: Category[] }) => {
   const { cart, isCartOpen, setIsCartOpen } = useCart();
 
-
   return (
     <header className=" container max-w-[1400px] mx-auto p-6 flex items-center justify-between z-20">
-      <Navbar categories={categories}/>
+      <Navbar categories={categories} />
       <Logo />
 
       {/* Cart Icon with Dropdown */}
@@ -32,18 +31,18 @@ const Header = ({ categories }: { categories: Category[] }) => {
           )}
         </div>
       </div>
-         {/* Dropdown */}
-        {isCartOpen &&
+      {/* Dropdown */}
+      {isCartOpen && (
         <>
-        <div
+          <div
             className="absolute top-20 inset-x-0 h-full bg-black opacity-25 z-50"
             onClick={() => setIsCartOpen(false)}
             data-testid="cart-overlay"
+            aria-modal="true"
           ></div>
-        <CartDropdown setIsCartOpen={setIsCartOpen} />
+          <CartDropdown setIsCartOpen={setIsCartOpen} />
         </>
-        
-        }
+      )}
     </header>
   );
 };

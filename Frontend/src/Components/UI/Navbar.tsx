@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react"; // You can use any icons you prefer
+import { Menu, X } from "lucide-react"; 
 
 interface Category {
   name: string;
@@ -14,7 +14,8 @@ const Navbar = ({ categories }: { categories: Category[] }) => {
     categories.map((category: Category) => {
       const path = `/${category.name.toLowerCase()}`;
       const isActive =
-        location.pathname === path || (category.name === "all" && location.pathname === "/");
+        location.pathname === path ||
+        (category.name === "all" && location.pathname === "/");
 
       return (
         <Link
@@ -40,7 +41,10 @@ const Navbar = ({ categories }: { categories: Category[] }) => {
 
       {/* Mobile nav */}
       <div className="md:hidden flex items-center justify-between">
-        <button onClick={() => setMenuOpen((prev) => !prev)} className="p-2 w-30">
+        <button
+          onClick={() => setMenuOpen((prev) => !prev)}
+          className="p-2 w-30"
+        >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>

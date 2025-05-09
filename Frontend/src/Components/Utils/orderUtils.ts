@@ -10,16 +10,17 @@ export const prepareOrderData = (cartItems: any[]) => {
         symbol: price.currency.symbol,
       },
     })),
-    attributes: item.allAttributes?.map((attr: any) => ({
-      id: attr.id,
-      name: attr.name,
-      type: attr.type,
-      items: attr.items.map((value: any) => ({
-        id: value.id,
-        value: value.value,
-        displayValue: value.displayValue,
-        selected: item.attributes?.[attr.name] === value.value,
-      })),
-    })) || [],
+    attributes:
+      item.allAttributes?.map((attr: any) => ({
+        id: attr.id,
+        name: attr.name,
+        type: attr.type,
+        items: attr.items.map((value: any) => ({
+          id: value.id,
+          value: value.value,
+          displayValue: value.displayValue,
+          selected: item.attributes?.[attr.name] === value.value,
+        })),
+      })) || [],
   }));
 };

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scandiweb\Http;
 
 require_once '../src/Support/helper.php';
@@ -10,14 +12,13 @@ class Route
     public static array $routes = [];
     protected Request $request;
     protected Response $response;
-    private static $fallback;
-
 
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
     }
+    
     public static function get($route, $action)
     {
         self::$routes['get'][$route] = $action;

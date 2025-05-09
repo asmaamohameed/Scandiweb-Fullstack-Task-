@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scandiweb\Queries;
 
 class PriceQuery 
@@ -8,9 +10,7 @@ class PriceQuery
 
     public static function selectPrice()
     {
-        return "SELECT * FROM " .static::$table. " WHERE product_id = :id";
-        
+        return "SELECT * FROM " .static::$table. " WHERE product_id = :id";  
     }
   
-
 }

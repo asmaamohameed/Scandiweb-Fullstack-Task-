@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scandiweb\Database;
 
 use App\Config\Config;
@@ -32,7 +34,6 @@ class Database
         } catch (PDOException $e) {
             throw new Exception("Database connection error: " . $e->getMessage());
         }
-        
     }
 
     //Returns the single database instance (singleton)
@@ -43,7 +44,7 @@ class Database
         }
         return self::$instance;
     }
-
+    
     public function getConnection(): PDO
     {
         return $this->pdo;

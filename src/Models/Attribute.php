@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scandiweb\Models;
 
 use Scandiweb\Queries\AttributeQuery;
@@ -10,13 +12,13 @@ class Attribute extends Model
     {
         $query = AttributeQuery::selectAttributes();
         $params = ['id' => $productId];
-
         $rows = static::query($query, $params);
-        
 
-        return array_map(function ($attr) {
-            $attr['items'] = AttributeValue::getByAttributeId($attr['id']);
-            return $attr;
-        }, $rows);
+        return array_map([static::class, 'mapAttribute'], $rows);
+    }
+    private static function mapAttribute(array $attribute): array
+    {
+        $attribute['items'] = AttributeValue::getByAttributeId((int) $attribute['id']);
+        return $attribute;
     }
 }
