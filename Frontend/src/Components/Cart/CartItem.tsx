@@ -99,7 +99,6 @@ const CartItem = ({ item }: CartItemProps) => {
             data-testid="cart-item-amount-decrease"
           >
             <Minus className="responsive-icon w-3 lg:w-4 h-3 lg:h-4" />{" "}
-
           </button>
         </div>
         <img

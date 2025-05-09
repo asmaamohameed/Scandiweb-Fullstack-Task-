@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scandiweb\Queries;
 
 class CategoryQuery
@@ -8,8 +10,7 @@ class CategoryQuery
 
     public static function selectById(): string
     {
-        return "SELECT * FROM " . static::$table . " WHERE id = :id LIMIT 1";
-        
+        return "SELECT * FROM " . static::$table . " WHERE id = :id LIMIT 1";   
     }
-
+    
 }

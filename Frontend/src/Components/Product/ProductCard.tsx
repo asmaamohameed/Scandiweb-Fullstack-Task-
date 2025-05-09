@@ -32,8 +32,9 @@ const ProductCard = ({ product }: { product: any }) => {
       <div className="relative">
         <Link
           to={`/product/${product.id}`}
-          data-testid={`product-${product.name.replace(/\s+/g, "-").toLowerCase()}`}
-
+          data-testid={`product-${product.name
+            .replace(/\s+/g, "-")
+            .toLowerCase()}`}
         >
           <img
             src={product.gallery[0]}
@@ -51,18 +52,19 @@ const ProductCard = ({ product }: { product: any }) => {
       </div>
       <p className="mt-2 text-lg font-medium">{product.name}</p>
       <p className="mt-2 font-bold text-lg">
-      {product.prices[0].currency.symbol}{product.prices[0].amount.toFixed(2)}
+        {product.prices[0].currency.symbol}
+        {product.prices[0].amount.toFixed(2)}
       </p>
       <div className="absolute bottom-18 md:bottom-26 lg:bottom-18 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
         <button
           className={`p-2 rounded-full cursor-pointer ${
             product.inStock
               ? "bg-green-500 text-white hover:bg-green-600"
-              : "bg-gray-400 text-gray-600 hover:cursor-not-allowed"
+              : "invisible "
           }`}
-          onClick={handleAddToCart}       
+          onClick={handleAddToCart}
           disabled={!product.inStock}
-          data-testid="add-to-cart" 
+          data-testid="add-to-cart"
         >
           <ShoppingCart size={24} />
         </button>

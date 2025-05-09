@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scandiweb\Models;
 
 use Scandiweb\DatabaseQuery;
@@ -14,7 +16,7 @@ abstract class Model
         if (!isset(static::$db)) {
             static::$db = new DatabaseQuery();
         }
-
+        
         return static::$db;
     }
 

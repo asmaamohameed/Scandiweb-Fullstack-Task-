@@ -15,9 +15,3 @@ class Config
         return self::$setting[$key] ?? null;
     }
 }
-// DB_HOST=localhost
-// DB_PORT=3306
-// DB_USERNAME=root
-// DB_PASSWORD=''
-// DB_DATABASE=scandiweb_ecommerce_task
-// DB_CHARSET=utf8mb4

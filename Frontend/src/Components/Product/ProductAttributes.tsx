@@ -29,8 +29,11 @@ const ProductAttributes: React.FC<ProductAttributesProps> = ({
       {attributes.map((attribute) => (
         <div key={attribute.id} className="mt-4">
           <h3 className="font-bold">{attribute.name.toUpperCase()}:</h3>
-          <div className="flex gap-2 mt-1"
-            data-testid={`product-attribute-${attribute.name.toLowerCase().replace(/\s+/g, "-")}`}
+          <div
+            className="flex gap-2 mt-1"
+            data-testid={`product-attribute-${attribute.name
+              .toLowerCase()
+              .replace(/\s+/g, "-")}`}
           >
             {attribute.items.map((item) => {
               const isSelected =
@@ -40,7 +43,9 @@ const ProductAttributes: React.FC<ProductAttributesProps> = ({
                 <button
                   key={item.id}
                   onClick={() => onSelect(attribute.name, item.value)}
-                  data-testid={`product-attribute-${attribute.name.toLowerCase().replace(/\s+/g, "-")}-${item.value}`}
+                  data-testid={`product-attribute-${attribute.name
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")}-${item.value}`}
                   className={`border px-4 py-2 text-sm hover:cursor-pointer ${
                     attribute.type === "swatch"
                       ? `w-10 h-10 ${

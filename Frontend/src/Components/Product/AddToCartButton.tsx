@@ -2,7 +2,6 @@ import React from "react";
 import { useCart } from "../../Context/CartContext";
 
 interface AddToCartButtonProps {
-  inStock: boolean;
   disabled?: boolean;
   onClick: () => void;
   testId?: string;
@@ -12,6 +11,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   onClick,
   testId = "add-to-cart",
   disabled = false,
+  
 }) => {
   const { setIsCartOpen } = useCart();
   const handleClick = () => {

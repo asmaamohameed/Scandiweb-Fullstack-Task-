@@ -1,8 +1,12 @@
-import { createBrowserRouter, Route, createRoutesFromElements } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Route,
+  createRoutesFromElements,
+} from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
 import CategoryPage from "../Pages/CategoryPage";
 import ProductPage from "../Pages/ProductPage";
-import ErrorPage from '../Components/Fallbacks/ErrorPage';
+import ErrorPage from "../Components/Fallbacks/ErrorPage";
 
 type Category = { name: string };
 

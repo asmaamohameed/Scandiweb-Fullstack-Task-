@@ -7,7 +7,7 @@ import Providers from "./Providers/Providers";
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Providers>
-        <App />
+      <App />
     </Providers>
   </React.StrictMode>
 );

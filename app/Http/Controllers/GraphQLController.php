@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Scandiweb\GraphQl\GraphQLHandler;
+use Scandiweb\GraphQL\GraphQLHandler;
 use Scandiweb\Http\Response;
 
 class GraphQLController
@@ -17,21 +17,26 @@ class GraphQLController
     public function index()
     {
         // Safely decode the incoming JSON
-        $input = json_decode(file_get_contents('php://input'), true);
+        try {
+            $input = json_decode(file_get_contents('php://input'), true);
 
-        if (!is_array($input) || !isset($input['query'])) {
-            Response::statusCode(400);
-            echo json_encode(['error' => 'Invalid GraphQL input']);
-            return;
+            if (!is_array($input) || !isset($input['query'])) {
+                Response::statusCode(400);
+                echo json_encode(['error' => 'Invalid GraphQL input']);
+                return;
+            }
+
+            $query = $input['query'];
+            $variables = $input['variables'] ?? null;
+            $operationName = $input['operationName'] ?? null;
+
+            $result = $this->graphQLHandler->executeQuery($query, $variables, $operationName);
+
+            header('Content-Type: application/json');
+            echo json_encode($result);
+        } catch (\Throwable $e) {
+            Response::statusCode(500);
+            echo json_encode(['error' => 'Internal Server Error']);
         }
-
-        $query = $input['query'];
-        $variables = $input['variables'] ?? null;
-        $operationName = $input['operationName'] ?? null;
-
-        $result = $this->graphQLHandler->executeQuery($query, $variables, $operationName);
-
-        header('Content-Type: application/json');
-        echo json_encode($result);
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
-namespace Scandiweb\GraphQl\Resolvers;
+declare(strict_types=1);
+
+namespace Scandiweb\GraphQL\Resolvers;
 
 use Scandiweb\Models\Order;
 
@@ -12,9 +14,11 @@ class OrderResolver
         $total = 0;
 
         foreach ($orderItems as $item) {
-            foreach ($item['prices'] as $price) {
+            $price = $item['prices'][0] ?? null;
+            if ($price) {
                 $total += $price['amount'] * ($item['quantity'] ?? 1);
             }
+            
         }
 
         $created = Order::create([
@@ -25,5 +29,6 @@ class OrderResolver
 
         return [
             'message' => $created ? 'Order placed successfully!' : 'Failed to place order.',
-        ];    }
+        ];
+    }
 }

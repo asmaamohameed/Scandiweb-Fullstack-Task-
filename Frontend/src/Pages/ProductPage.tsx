@@ -36,11 +36,10 @@ const ProductPage = () => {
     );
   }
   const areAllAttributesSelected =
-  product &&
-  product.attributes.every(
-    (attr: any) => selectedAttributes[attr.name] !== undefined
-  );
-
+    product &&
+    product.attributes.every(
+      (attr: { name: string }) => selectedAttributes[attr.name] !== undefined
+    );
 
   const handleAttributeSelect = (attributeName: string, value: string) => {
     setSelectedAttributes((prev) => ({
@@ -96,7 +95,6 @@ const ProductPage = () => {
 
           {/* Add to Cart */}
           <AddToCartButton
-            inStock={product.inStock}
             disabled={!product.inStock || !areAllAttributesSelected}
             onClick={() =>
               product.inStock &&

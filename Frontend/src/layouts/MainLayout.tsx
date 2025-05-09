@@ -7,10 +7,10 @@ type Category = {
 
 const MainLayout = ({ categories }: { categories: Category[] }) => {
   return (
-      <div className="layout relative">
-        <Header categories={categories} />
-        <Outlet />
-      </div>
-    );
-}
+    <div className="layout relative">
+      <Header categories={categories} />
+      <Outlet />
+    </div>
+  );
+};
 export default MainLayout;

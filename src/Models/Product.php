@@ -1,32 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scandiweb\Models;
 
 use Scandiweb\Queries\ProductQuery;
 
 class Product extends Model
 {
-    public static function getAll(): array
-    {
-        $query = ProductQuery::all();
-        $params = [];
-
-        $products = static::query($query, $params);
-        return array_map([static::class, 'mapProduct'], $products);
-    }
-
     public static function getByCategory(?string $category = null): array
     {
+        $query = ProductQuery::all();
         $params = [];
 
         if ($category && strtolower($category) !== 'all') {
             $query = ProductQuery::selectByCategory();
             $params['category'] = strtolower($category);
         }
-        else {
-            $query = ProductQuery::all();
-        }
-
         $products = static::query($query, $params);
         return array_map([static::class, 'mapProduct'], $products);
     }
@@ -45,7 +35,7 @@ class Product extends Model
         $product['attributes'] = Attribute::getByProductId($product['id']);
         $product['prices'] = Price::getByProductId($product['id']);
         $product['category'] = Category::findById($product['category_id']);
-        $product['gallery'] = json_decode($product['gallery'], true);
+        $product['gallery'] = json_decode($product['gallery'], true) ?? [];
         return $product;
     }
 }

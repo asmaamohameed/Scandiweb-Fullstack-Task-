@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scandiweb;
 
 use Scandiweb\Http\Request;
@@ -14,6 +16,7 @@ class Application
     {
         $this->route = new Route(new Request, new Response);
     }
+    
     public function run()
     {
         $this->route->resolve();

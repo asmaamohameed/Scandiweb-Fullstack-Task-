@@ -1,9 +1,10 @@
-<?php 
+<?php
+
+declare(strict_types=1);
 
 namespace Scandiweb;
 
 use Scandiweb\Database\Database;
-use PDO;
 
 class DatabaseQuery
 {
@@ -25,7 +26,6 @@ class DatabaseQuery
     public function get(): array
     {
         return $this->statement->fetchAll();
-        
     }
 
     public function fetch(): array|false

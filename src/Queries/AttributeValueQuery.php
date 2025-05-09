@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scandiweb\Queries;
 
 class AttributeValueQuery 
@@ -10,7 +12,4 @@ class AttributeValueQuery
     {
         return "SELECT * FROM " .static::$table. " WHERE attribute_id = :id";
     }
-
-  
-
 }

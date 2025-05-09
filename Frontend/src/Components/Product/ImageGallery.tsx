@@ -18,7 +18,10 @@ const ProductImageGallery = ({
   productName,
 }: Props) => {
   return (
-    <div className="flex flex-col md:flex-row gap-4" data-testid="product-gallery">
+    <div
+      className="flex flex-col md:flex-row gap-4"
+      data-testid="product-gallery"
+    >
       <div className="flex md:flex-col gap-2 overflow-x-auto md:overflow-y-auto md:max-h-auto">
         {images.map((image, index) => (
           <img
@@ -32,7 +35,7 @@ const ProductImageGallery = ({
           />
         ))}
       </div>
-       {/* Main Image */}
+      {/* Main Image */}
       <div className="relative w-full h-[600px] md:h-[400px] md:h-[500px] sm:h-[400px] md:h-[500px] bg-white">
         <img
           src={images[selectedIndex]}
