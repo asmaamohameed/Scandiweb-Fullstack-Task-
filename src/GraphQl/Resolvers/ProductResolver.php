@@ -2,21 +2,32 @@
 
 declare(strict_types=1);
 
-namespace Scandiweb\GraphQL\Resolvers;
+namespace App\GraphQL\Resolvers;
 
-use Scandiweb\Models\Product;
+use App\Models\Product;
 
 class ProductResolver
 {
-    public static function all(?array $args = []): array
+    protected Product $product;
+
+    public function __construct(Product $product)
+    {
+        $this->product = $product;
+    }
+    public function all(?array $args = []): array
     {
         $category = $args['category'] ?? null;
 
-        return Product::getByCategory($category);
+        return $this->product->getByCategory($category);
     }
 
-    public static function find(array $args): ?array
+    public function find(array $args): ?array
     {
-        return Product::findById($args['id']);
+        $product = $this->product->findById($args['id']);
+        if (!$product) {
+            throw new \Exception("Product not found with ID {$args['id']}");
+        }
+
+        return $product;
     }
 }

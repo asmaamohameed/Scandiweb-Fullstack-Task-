@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Scandiweb\Queries;
+namespace App\Queries;
 
 class PriceQuery 
 {
-    protected static string $table = 'prices';
-
-    public static function selectPrice()
+    public function selectPrice(string $table)
     {
-        return "SELECT * FROM " .static::$table. " WHERE product_id = :id";  
+        return "SELECT * FROM {$table} WHERE product_id = :id";  
     }
   
 }

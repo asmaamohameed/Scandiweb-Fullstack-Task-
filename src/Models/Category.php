@@ -2,20 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Scandiweb\Models;
+namespace App\Models;
 
-use Scandiweb\Queries\CategoryQuery;
+use App\DatabaseQuery;
+use App\Queries\CategoryQuery;
+
 class Category extends Model
 {
-    protected static string $table = 'categories';
+    private CategoryQuery $categoryQuery;
 
-    public static function findById(int $id): ?array
+    public function __construct(DatabaseQuery $db, CategoryQuery $categoryQuery)
     {
-        $query = CategoryQuery::selectById();
+        parent::__construct($db);
+        $this->categoryQuery = $categoryQuery;
+    }
+    protected function table(): string
+    {
+        return 'categories';
+    }
+    public function findById(int $id): ?array
+    {
+        $query = $this->categoryQuery->selectById($this->table());
         $params = ['id' => $id];
 
-        return static::querySingle($query, $params) ?? null;
+        return $this->querySingle($query, $params) ?? null;
     }
-
 }
-

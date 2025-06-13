@@ -2,15 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Scandiweb\Queries;
+namespace App\Queries;
 
 class OrderQuery 
 {
-    protected static string $table = 'orders';
-
-    public static function insertOrder()
+    public function insertOrder(string $table): string
     {
-        return"INSERT INTO  " .static::$table. " (order_details, order_status, total, created_at) 
+        return"INSERT INTO {$table} (order_details, order_status, total, created_at) 
                   VALUES (:details, :status, :total, :created_at)";
     }
     

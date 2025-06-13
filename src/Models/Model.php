@@ -2,36 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Scandiweb\Models;
+namespace App\Models;
 
-use Scandiweb\DatabaseQuery;
+use App\DatabaseQuery;
 
 abstract class Model
 {
-    protected static string $table;
-    protected static DatabaseQuery $db;
-
-    protected static function db(): DatabaseQuery
+    protected DatabaseQuery $db;
+    public function __construct(DatabaseQuery $db)
     {
-        if (!isset(static::$db)) {
-            static::$db = new DatabaseQuery();
-        }
-        
-        return static::$db;
+        $this->db = $db;
+    }
+    abstract protected function table(): string;
+    protected function query(string $sql, array $params = []): array
+    {
+        return $this->db->query($sql, $params)->get();
     }
 
-    protected static function query(string $sql, array $params = []): array
+    protected function querySingle(string $sql, array $params = []): ?array
     {
-        return static::db()->query($sql, $params)->get();
-    }
-
-    protected static function querySingle(string $sql, array $params = []): ?array
-    {
-        $result = static::db()->query($sql, $params)->fetch();
+        $result = $this->db->query($sql, $params)->fetch();
         return $result ?: null;
     }
-    public static function getAll(): array
+    public function getAll(): array
     {
-        return static::query("SELECT * FROM " . static::$table);
+        return $this->query("SELECT * FROM " . $this->table());
     }
 }

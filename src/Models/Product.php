@@ -2,40 +2,66 @@
 
 declare(strict_types=1);
 
-namespace Scandiweb\Models;
+namespace App\Models;
 
-use Scandiweb\Queries\ProductQuery;
+use App\DatabaseQuery;
+use App\Queries\ProductQuery;
 
 class Product extends Model
 {
-    public static function getByCategory(?string $category = null): array
+    private Attribute $attributeModel;
+    private Price $priceModel;
+    private Category $categoryModel;
+    private ProductQuery $productQuery;
+
+    public function __construct(
+        DatabaseQuery $db,
+        ProductQuery $productQuery,
+        Attribute $attributeModel,
+        Price $priceModel,
+        Category $categoryModel
+    ) {
+        parent::__construct($db);
+        $this->productQuery = $productQuery;
+        $this->attributeModel = $attributeModel;
+        $this->priceModel = $priceModel;
+        $this->categoryModel = $categoryModel;
+    }
+    protected function table(): string
     {
-        $query = ProductQuery::all();
+        return 'products';
+    }
+
+    public function getByCategory(?string $category = null): array
+    {
         $params = [];
+        $query = $this->productQuery->all($this->table());
 
         if ($category && strtolower($category) !== 'all') {
-            $query = ProductQuery::selectByCategory();
+            $query = $this->productQuery->selectByCategory($this->table());
             $params['category'] = strtolower($category);
         }
-        $products = static::query($query, $params);
-        return array_map([static::class, 'mapProduct'], $products);
+
+        $products = $this->query($query, $params);
+        return array_map([$this, 'mapProduct'], $products);
     }
 
-    public static function findById(string $id): ?array
+    public function findById(string $id): ?array
     {
-        $query = ProductQuery::selectById();
+        $query =$this->productQuery->selectById($this->table());
         $params = ['id' => $id];
 
-        $product = static::querySingle($query, $params) ?? null;
-        return $product ? static::mapProduct($product) : null;
+        $product = $this->querySingle($query, $params);
+        return $product ? $this->mapProduct($product) : null;
     }
 
-    private static function mapProduct(array $product): array
+    private function mapProduct(array $product): array
     {
-        $product['attributes'] = Attribute::getByProductId($product['id']);
-        $product['prices'] = Price::getByProductId($product['id']);
-        $product['category'] = Category::findById($product['category_id']);
-        $product['gallery'] = json_decode($product['gallery'], true) ?? [];
-        return $product;
+        return array_merge($product, [
+            'attributes' => $this->attributeModel->getByProductId($product['id']),
+            'prices' => $this->priceModel->getByProductId($product['id']),
+            'category' => $this->categoryModel->findById($product['category_id']),
+            'gallery' => json_decode($product['gallery'], true) ?? [],
+        ]);
     }
 }

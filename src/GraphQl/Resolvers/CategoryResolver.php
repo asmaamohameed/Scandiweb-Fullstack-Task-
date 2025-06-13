@@ -2,20 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Scandiweb\GraphQL\Resolvers;
+namespace App\GraphQL\Resolvers;
 
-use Scandiweb\Models\Category;
+use App\Models\Category;
 
 class CategoryResolver
 {
-    public static function all(): array
+    protected Category $category;
+
+    public function __construct(Category $category)
     {
-        return Category::getAll();
+        $this->category = $category;
     }
 
-    public static function find(array $args): ?array
+    public function all(): array
     {
-        return Category::findById($args['id']);
+        return $this->category->getAll();
     }
-    
+
+    public function find(array $args): ?array
+    {
+        return $this->category->findById($args['id']);
+    }
 }
