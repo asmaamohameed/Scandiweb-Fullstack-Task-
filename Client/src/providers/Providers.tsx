@@ -1,4 +1,4 @@
-import GraphQLProvider from "../graphql/GraphqlProvider";
+import GraphQLProvider from "../graphql/GraphQLProvider";
 import { CartProvider } from "../context/cartContext";
 
 const Providers = ({ children }: { children: React.ReactNode }) => (
