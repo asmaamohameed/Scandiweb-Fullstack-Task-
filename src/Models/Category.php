@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\FindByIdInterface;
 use App\DatabaseQuery;
 use App\Queries\CategoryQuery;
 
-class Category extends Model
+class Category extends Model implements FindByIdInterface
 {
     private CategoryQuery $categoryQuery;
 
@@ -20,7 +21,7 @@ class Category extends Model
     {
         return 'categories';
     }
-    public function findById(int $id): ?array
+    public function findById(int|string $id): ?array
     {
         $query = $this->categoryQuery->selectById($this->table());
         $params = ['id' => $id];

@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Contracts\FindByIdInterface;
 use App\DatabaseQuery;
 use App\Queries\ProductQuery;
 
-class Product extends Model
+class Product extends Model implements FindByIdInterface
 {
     private Attribute $attributeModel;
     private Price $priceModel;
@@ -46,7 +47,7 @@ class Product extends Model
         return array_map([$this, 'mapProduct'], $products);
     }
 
-    public function findById(string $id): ?array
+    public function findById(int|string $id): ?array
     {
         $query =$this->productQuery->selectById($this->table());
         $params = ['id' => $id];

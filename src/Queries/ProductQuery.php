@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Queries;
 
-class ProductQuery
+use App\Contracts\SelectByIdInterface;
+
+class ProductQuery implements SelectByIdInterface
 {
     public function all(string $table): string
     {
@@ -20,7 +22,5 @@ class ProductQuery
     public function selectById(string $table): string
     {
         return "SELECT * FROM {$table}  WHERE id = :id LIMIT 1";
-        
     }
-
 }
