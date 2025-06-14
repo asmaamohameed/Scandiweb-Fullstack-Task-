@@ -13,7 +13,6 @@ type Category = {
 const Header = ({ categories }: { categories: Category[] }) => {
   const { cart, isCartOpen, setIsCartOpen } = useCart();
   const location = useLocation();
-  // Lock scroll when cart is open
   useEffect(() => {
     if (isCartOpen) {
       document.body.classList.add("overflow-hidden");
@@ -24,7 +23,6 @@ const Header = ({ categories }: { categories: Category[] }) => {
       document.body.classList.remove("overflow-hidden");
     };
   }, [isCartOpen]);
-  // Close cart on route change
   useEffect(() => {
     if (isCartOpen) {
       setIsCartOpen(false);
