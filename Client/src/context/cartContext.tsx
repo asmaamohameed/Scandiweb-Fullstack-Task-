@@ -54,7 +54,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem("cart", JSON.stringify(cart));
     }
   }, [cart]);
-
   const addToCart = (
     product: CartItem,
     selectedAttributes: Record<string, string> = {},
@@ -66,7 +65,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           item.id === product.id &&
           areAttributesEqual(item.attributes, selectedAttributes)
       );
-
       if (existingProduct) {
         return prevCart.map((item) =>
           item.id === product.id &&
@@ -118,7 +116,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         clearCart,
         isCartOpen,
         setIsCartOpen,
-        closeCart
+        closeCart,
       }}
     >
       {children}

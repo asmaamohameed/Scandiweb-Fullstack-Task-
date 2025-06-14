@@ -72,9 +72,9 @@ class OrderResolver
         }
     }
 
-    /**
-     * Validates the order input structure and data.
-     */
+    
+    //Validates the order input structure and data.
+     
     private function validateOrderInput(array $orderItems): ?string
     {
         if (!is_array($orderItems) || empty($orderItems)) {

@@ -22,4 +22,3 @@ class OrderInputType extends InputObjectType
         ]);
     }
 }
-

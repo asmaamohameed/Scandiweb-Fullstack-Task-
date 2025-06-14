@@ -8,14 +8,11 @@ const CategoryPage = ({ category }: { category: string }) => {
   const { loading, error, data } = useQuery(GET_PRODUCTS, {
     variables: { category },
   });
-
   if (loading) return <Loading />;
   if (error)
     return (
-      <ErrorPage
-        message="Failed to fetch products from server. Please check your connection." />
+      <ErrorPage message="Failed to fetch products from server. Please check your connection." />
     );
-
   const filteredProducts = data?.products ?? [];
 
   return (

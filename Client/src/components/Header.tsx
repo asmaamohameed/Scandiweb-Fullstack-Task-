@@ -35,7 +35,6 @@ const Header = ({ categories }: { categories: Category[] }) => {
     <header className=" container max-w-[1400px] mx-auto p-6 flex items-center justify-between z-20">
       <Navbar categories={categories} />
       <Logo />
-
       {/* Cart Icon with Dropdown */}
       <div className="relative">
         <div

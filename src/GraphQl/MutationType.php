@@ -16,7 +16,7 @@ class MutationType extends ObjectType
             'name' => 'Mutation',
             'fields' => fn() => [
                 'placeOrder' => [
-                    'type' => $typeRegistry->get('OrderResponse'), 
+                    'type' => $typeRegistry->get('OrderResponse'),
                     'args' => [
                         'order' => [
                             'type' => Type::nonNull(Type::listOf($typeRegistry->get('OrderInput')))

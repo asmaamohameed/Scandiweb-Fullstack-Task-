@@ -11,7 +11,6 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   onClick,
   testId = "add-to-cart",
   disabled = false,
-  
 }) => {
   const { setIsCartOpen } = useCart();
   const handleClick = () => {

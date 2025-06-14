@@ -18,7 +18,6 @@ abstract class Model
     {
         return $this->db->query($sql, $params)->get();
     }
-
     protected function querySingle(string $sql, array $params = []): ?array
     {
         $result = $this->db->query($sql, $params)->fetch();

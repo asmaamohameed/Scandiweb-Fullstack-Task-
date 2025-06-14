@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react"; 
+import { Menu, X } from "lucide-react";
 import { useCart } from "../../context/cartContext";
 
 interface Category {
@@ -10,14 +10,12 @@ interface Category {
 const Navbar = ({ categories }: { categories: Category[] }) => {
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
-  const {closeCart} = useCart();
-  
+  const { closeCart } = useCart();
   useEffect(() => {
-    if(menuOpen){
+    if (menuOpen) {
       setMenuOpen(false);
     }
-  },[location.pathname]);
-
+  }, [location.pathname]);
   const renderLinks = (isMobile = false) =>
     categories.map((category: Category) => {
       const path = `/${category.name.toLowerCase()}`;
@@ -48,8 +46,9 @@ const Navbar = ({ categories }: { categories: Category[] }) => {
       {/* Mobile nav */}
       <div className="md:hidden flex items-center justify-between">
         <button
-          onClick={() => {setMenuOpen((prev) => !prev);
-            closeCart(); 
+          onClick={() => {
+            setMenuOpen((prev) => !prev);
+            closeCart();
           }}
           className="p-2 w-30 cursor-pointer"
         >

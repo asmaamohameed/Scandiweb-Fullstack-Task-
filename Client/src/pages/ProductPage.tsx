@@ -22,13 +22,11 @@ const ProductPage = () => {
   const [selectedAttributes, setSelectedAttributes] = useState<
     Record<string, string>
   >({});
-
   if (loading) return <Loading />;
   if (error)
     return (
       <ErrorPage message="Failed to fetch product from server. Please check your connection." />
     );
-
   if (!product) {
     return (
       <ErrorPage message="Failed to fetch product from server. Product Not Found" />
@@ -39,18 +37,15 @@ const ProductPage = () => {
     product.attributes.every(
       (attr: { name: string }) => selectedAttributes[attr.name] !== undefined
     );
-
   const handleAttributeSelect = (attributeName: string, value: string) => {
     setSelectedAttributes((prev) => ({
       ...prev,
       [attributeName]: value,
     }));
   };
-
   const handleNext = () => {
     setSelectedIndex((prevIndex) => (prevIndex + 1) % product.gallery.length);
   };
-
   const handlePrev = () =>
     setSelectedIndex(
       (prevIndex) =>

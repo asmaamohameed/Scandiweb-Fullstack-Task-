@@ -7,7 +7,6 @@ export const areAttributesEqual = (
     Object.entries(attr1).every(([key, value]) => attr2[key] === value)
   );
 };
-
 export const getDefaultAttributes = (
   attributes: { name: string; items: { value: string }[] }[] = []
 ): Record<string, string> => {
@@ -17,6 +16,5 @@ export const getDefaultAttributes = (
       defaultAttrs[attr.name] = attr.items[0].value;
     }
   });
-
   return defaultAttrs;
 };
