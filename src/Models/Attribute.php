@@ -2,23 +2,43 @@
 
 declare(strict_types=1);
 
-namespace Scandiweb\Models;
+namespace App\Models;
 
-use Scandiweb\Queries\AttributeQuery;
+use App\DatabaseQuery;
+use App\Queries\AttributeQuery;
+use App\Models\AttributeValue;
 
 class Attribute extends Model
 {
-    public static function getByProductId(string $productId): array
-    {
-        $query = AttributeQuery::selectAttributes();
-        $params = ['id' => $productId];
-        $rows = static::query($query, $params);
+    private AttributeQuery $attributeQuery;
+    private AttributeValue $attributeValueModel;
 
-        return array_map([static::class, 'mapAttribute'], $rows);
+    public function __construct(
+        DatabaseQuery $db,
+        AttributeQuery $attributeQuery,
+        AttributeValue $attributeValueModel
+    ) {
+        parent::__construct($db);
+        $this->attributeQuery = $attributeQuery;
+        $this->attributeValueModel = $attributeValueModel;
     }
-    private static function mapAttribute(array $attribute): array
+    protected function table(): string
     {
-        $attribute['items'] = AttributeValue::getByAttributeId((int) $attribute['id']);
+        return 'attributes';
+    }
+
+    public function getByProductId(string $productId): array
+    {
+        $query = $this->attributeQuery->selectAttributes($this->table());
+        $params = ['id' => $productId];
+        $attributes = $this->query($query, $params);
+
+        return array_map([$this, 'mapAttribute'], $attributes);
+    }
+
+    private function mapAttribute(array $attribute): array
+    {
+        $attribute['items'] = $this->attributeValueModel->getByAttributeId((int)$attribute['id']);
         return $attribute;
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Scandiweb\Database;
+namespace App\Database;
 
 use App\Config\Config;
 use PDO;

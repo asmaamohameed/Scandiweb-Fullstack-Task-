@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Scandiweb;
+namespace App;
 
-use Scandiweb\Database\Database;
+use App\Database\Database;
 
 class DatabaseQuery
 {
@@ -31,17 +31,6 @@ class DatabaseQuery
     public function fetch(): array|false
     {
         return $this->statement->fetch();
-    }
-
-    public function fetchOrFail(): array
-    {
-        $result = $this->fetch();
-
-        if (!$result) {
-            view(view: 'errors/404');
-        }
-
-        return $result;
     }
 
     public function fetchColumn(): mixed

@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Scandiweb\Queries;
+namespace App\Queries;
 
-class AttributeValueQuery 
+class AttributeValueQuery
 {
-    protected static string $table = 'attribute_values';
-
-    public static function selectAttributeValues()
+    public function selectAttributeValues(string $table): string
     {
-        return "SELECT * FROM " .static::$table. " WHERE attribute_id = :id";
+        return "SELECT * FROM {$table} WHERE attribute_id = :id";
     }
 }

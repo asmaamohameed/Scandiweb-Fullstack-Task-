@@ -2,26 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Scandiweb\Queries;
+namespace App\Queries;
 
 class ProductQuery
 {
-    protected static string $table = 'products';
-
-    public static function all(): string
+    public function all(string $table): string
     {
-        return "SELECT * FROM " . static::$table;
+        return "SELECT * FROM {$table}";
     }
 
-    public static function selectByCategory(): string
+    public function selectByCategory(string $table): string
     {
-        return "SELECT * FROM " . static::$table . " WHERE category_id = (
+        return "SELECT * FROM {$table} WHERE category_id = (
         SELECT id FROM categories WHERE LOWER(name) = :category)";
     }
 
-    public static function selectById(): string
+    public function selectById(string $table): string
     {
-        return "SELECT * FROM " . static::$table . " WHERE id = :id LIMIT 1";
+        return "SELECT * FROM {$table}  WHERE id = :id LIMIT 1";
         
     }
 
